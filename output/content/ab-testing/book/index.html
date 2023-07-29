@@ -1,0 +1,892 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+	<head id="ctl00_head1"><title>
+	Chapter 1- AB testing book
+
+</title><meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<noscript><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-desktop.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-1200px.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-noscript.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style-desktop.css" /></noscript>
+		<script src="https://kreate.blob.core.windows.net/site2/css/5grid/jquery.js"></script>
+		<script src="https://kreate.blob.core.windows.net/site2/css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none&amp;mobileUI.titleBarHeight=55&amp;mobileUI.openerWidth=75&amp;mobileUI.openerText=&lt;"></script>
+		<!--[if lte IE 9]><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style-ie9.css" /><![endif]-->
+	<meta name="description" content="chapter1
+" /><meta name="keywords" content="chapter1
+" /></head>
+	<body>
+      <div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1573760292911899";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<body class="subpage">
+			<div id="header-wrapper">
+				
+                <header id="header" class="5grid-layout">
+					<div class="row">
+						<div class="12u">
+						
+							<!-- Logo -->
+							
+                            <h1><a id="ctl00_topheader" class="mobileUI-site-name">Chapter 1- AB testing book
+</a></h1>
+							
+							<!-- Nav -->
+								<nav class="mobileUI-site-nav">
+							        <a id="ctl00_hyperlinkHome" href="https://www.abexperiment.com/">Home</a>
+								</nav>
+
+						</div>
+					</div>
+				</header>
+				
+			</div>
+        <div id="content-wrapper">
+				<div id="content">
+					<div class="5grid-layout">
+						<div class="row">
+							<div class="9u">
+
+								
+							
+							
+
+		
+	
+			
+	
+							
+
+								<!-- Main Content -->
+									<section>
+										<header>
+											
+                                             <h2><span id="ctl00_ContentPlaceHolder1_title">Chapter 1- AB testing book
+</span></h2>
+											
+										</header>
+										<p>
+                                          <table id="ctl00_ContentPlaceHolder1_RepDetails" cellspacing="0" border="0">
+	<tr>
+		<td>
+
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl01_labeltext"><font color="Black" size="4"><h2>Prereq for A/B testing </h2>
+<p>Please ensure wole team has reasonably good understanding of these topics</p>
+<li>Randomization </li>
+<li>Sample </li>
+<li>Population  </li>
+<li>Control and treatment  </li>
+<li>P-values  </li>
+<li>Confidence interval  </li>
+<li>Statistical significance  </li>
+<li>Practical significance </li>
+</font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl02_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl03_labeltext"><font color="Black" size="4"><h2>A/B testing steps</h2>
+<p>The article will provide a step-by-step walkthrough on all steps required for ab testing</p>
+<li>Designing the experimentation</li>
+<li>Dunning the experimentation </li>
+<li>Getting data</li>
+<li>Rnterpreting the results </li>
+<li>Using results to decision-making and creating impact</li></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl04_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl05_labeltext"><font color="Black" size="4"><h2>Design Experiment</h2>
+<p>Before you start doing ab testing or run experiment, ascertain your hypothesis, a practical significance boundary, and a few metrics. Ensure these are disucssed and reviewed.Here are some tips for designing an A/B test:</p>
+<li>Define your goal. What are you trying to achieve with your A/B test? Do you want to increase conversions, reduce bounce rate, or something else?</li>
+<li>Choose the right metrics. Once you know your goal, you need to choose the metrics you will use to measure success. These metrics should be directly related to your goal.</li>
+<li>Choose the right variables to test. There are many different variables you can test, but it is important to choose the ones that are most likely to have a significant impact on your results.</li>
+<li>Create two variants. You need to create two variants of your page or email, one that is the control and one that is the test. The control should be the current version of your page or email, and the test should be the version you are trying to improve.</li>
+<li>Determine how to split your traffic. Once you have created your two variants, you need to split your traffic between them. This can be done randomly or using a pre-defined algorithm.</li>
+<li>Determine how long you need to run the test . A/B tests need to run for long enough to collect enough data to get statistically significant results. This can take anywhere from a few days to a few weeks, depending on your traffic volume.</li>
+<p></p>
+<p>We should check the randomization of the sample that we will use for the control and treatment. We also should pay attention to how large the sample is to be used for running the experimentation. If we are concerned about detecting a small change or being more confident about the conclusion, we have to consider using more samples and a lower p-value threshold to get a more accurate result. However, If we are no longer care about small changes, we could reduce the sample to detect the practical significance.</p>
+<p>After you run experiment, plan how will you do following</p>
+<li>Analyze the results. Once the test is complete, you need to analyze the results to see which variant performed better. You can use a variety of statistical tests to do this.</li>
+<li>Implement the winning variant. Once you have identified the winning variant, you need to implement it on your live site or email.</li>
+<li>Continue to test. A/B testing is an ongoing process. Once you have implemented the winning variant, you need to continue to test to see if there are other ways to improve your results.</li></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl06_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl07_labeltext"><font color="Black" size="4"><h2>Data collection for ab testing</h2>
+<p>There are a few different ways to collect data for A/B testing. The most common way is to use a tool like Google Analytics or Optimizely. These tools allow you to track the number of visitors to your site, the pages they visit, and the actions they take. You can then use this data to compare the performance of different versions of your site or email.</p>
+<p>Another way to collect data for A/B testing is to use surveys or interviews. This can be a good way to get feedback on specific elements of your site or email, such as the design, the content, or the call to action.</p>
+<p>Once you have collected data, you need to analyze it to see which variant performed better. You can use a variety of statistical tests to do this. The most common test is the A/B test, which compares the conversion rates of two variants.</p>
+<p>Once you have identified the winning variant, you need to implement it on your live site or email. Then, you can continue to test to see if there are other ways to improve your results.</p>
+<h3>Here are some tips for quantitity and quality of collecting data for A/B testing:</h3>
+<p>Choose the right metrics to track. Not all metrics are created equal. When you're running an A/B test, you need to choose metrics that are directly related to your goal. For example, if you're trying to increase sales, you might track the number of purchases or the average order value.</p>
+<li>Collect enough data. You need to collect enough data to get statistically significant results. This means that you need to have a large enough sample size and that you need to run the test for long enough.</li>
+<li>Avoid bias. It's important to avoid bias when collecting data. This means that you need to make sure that the data you collect is representative of your target audience.</li>
+<li>Test multiple variants. It's a good idea to test multiple variants at the same time. This will allow you to compare the performance of different versions of your site or email.</li>
+<li>Analyze your results. Once you have collected data, you need to analyze it to see which variant performed better. You can use a variety of statistical tests to do this.</li>
+<li>Implement the winning variant. Once you have identified the winning variant, you need to implement it on your live site or email.</li>
+<li>Continue to test. A/B testing is an ongoing process. Once you have implemented the winning variant, you need to continue to test to see if there are other ways to improve your results.</li></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl08_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl09_labeltext"><font color="Black" size="4"><h2>Precautions for A/B experiment</h2>
+<p>Make sure your test is statistically significant. This means that you have enough data to be confident that the results of your test are not due to chance.</p>
+<li>Avoid confounding variables. These are variables that could affect the results of your test, but are not related to the changes you are testing. For example, if you are testing a new headline, make sure that you don't also change the body copy or the call to action at the same time.</li>
+<li>Test for multiple variants. This will allow you to compare the performance of different versions of your site or email.</li>
+<li>Analyze your results carefully. Make sure that you understand the results of your test before making any changes to your site or email.</li>
+<li>Be patient. A/B testing takes time to be effective. Don't expect to see results overnight.</li>
+<p>Here are some additional tips for running a successful A/B test:</p>
+<li>Plan your test carefully. Before you start, take the time to think about what you want to test and how you will measure success.</li>
+<li>Use a reliable A/B testing tool. There are many different A/B testing tools available, so choose one that is right for you.</li>
+<li>Set a budget and timeline. A/B testing can be time-consuming and expensive, so make sure you have a plan in place before you start.</li>
+<li>Get buy-in from stakeholders. Make sure that everyone involved in your business understands the importance of A/B testing and is on board with the process.</li>
+<li>Track your results. Once your test is complete, be sure to track your results and measure your success.</li>
+<li>Iterate and improve. A/B testing is an ongoing process. Once you have identified a winning variant, continue to test to see if you can improve your results even further.</li>
+</font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl10_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl11_labeltext"><font color="Black" size="4"></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl12_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl13_labeltext"><font color="Black" size="4"><h2>Interpreting A/B testing results</h2>
+<li>Make sure your test is statistically significant. This means that you have enough data to be confident that the results of your test are not due to chance. You can use a variety of statistical tests to determine whether your results are statistically significant.</li>
+<li>Avoid confounding variables. These are variables that could affect the results of your test, but are not related to the changes you are testing. For example, if you are testing a new headline, make sure that you don't also change the body copy or the call to action at the same time.</li>
+<li>Test for multiple variants. This will allow you to compare the performance of different versions of your site or email.</li>
+<li>Analyze your results carefully. Make sure that you understand the results of your test before making any changes to your site or email.</li>
+<li>Be patient. A/B testing takes time to be effective. Don't expect to see results overnight.</li>
+<p>Here are some additional tips for interpreting A/B testing results correctly:</p>
+<li>Consider your target audience. When interpreting A/B testing results, it's important to consider your target audience. What are their needs and wants? What are their pain points? What are their motivations? Understanding your target audience will help you to interpret the results of your A/B tests and make informed decisions about your website or email.</li>
+<li>Look at the big picture. Don't get too caught up in the details of your A/B testing results. Instead, focus on the big picture. Are you seeing an overall improvement in your results? If so, then you're on the right track.</li>
+<li>Be willing to make changes. If your A/B testing results show that you need to make changes to your website or email, be willing to make them. Don't be afraid to experiment and try new things. The only way to improve your results is to keep testing and learning.</li>
+<li>Iterate and improve. A/B testing is an ongoing process. Once you have identified a winning variant, continue to test to see if you can improve your results even further.</li></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl14_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl15_labeltext"><font color="Black" size="4"><h2>a/b testing - Statistical or practical significance threshold</h2>
+<p>In A/B testing, the statistical or practical significance threshold is the minimum amount of improvement that you need to see in your results before you can be confident that the change you made is actually making a difference.</p>
+<p>The statistical significance threshold is typically set at 0.05, which means that you need to be 95% confident that the change you made is not due to chance. The practical significance threshold is typically set at a higher level, such as 0.10 or 0.15, which means that you need to be more confident that the change you made is actually making a difference.</p>
+<p>The choice of statistical or practical significance threshold will depend on a number of factors, such as the cost of making the change, the potential impact of the change, and the level of risk you are willing to take.</p>
+<p>It is important to note that the statistical significance threshold is just a starting point. You may need to adjust the threshold based on other factors, such as the amount of data you have collected and the confidence level you are comfortable with.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl16_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl17_labeltext"><font color="Black" size="4"></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl18_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl19_labeltext"><font color="Black" size="4"></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl20_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl21_labeltext"><font color="Black" size="4"></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl22_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl23_labeltext"><font color="Black" size="4"></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+
+</td>
+	</tr>
+</table>
+
+								</p> <!-- article finish -->
+										
+										
+								</section>
+
+						
+						
+
+
+
+							</div>
+
+							<div class="3u">
+								
+								<!-- Right Sidebar -->
+									<section>
+										<header>
+											<h2>Topic</h2>
+										</header>
+                                          <p>
+										  
+
+    
+
+
+
+												
+		<li>					
+			<a id="ctl00_articlessub_RepLinks_ctl01_title" href="https://www.abexperiment.com/"><em><b>Home</b></em></a>
+            
+           
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+		
+                                            					
+										</p>
+                                        <p>
+											
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl01_title" href="https://www.abexperiment.com/ab-testing/book/chapter2.html">Chapter2</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/book/chapter3.html">Chapter3</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl03_title" href="https://www.abexperiment.com/ab-testing/book/chapter6.html">Chapter6</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl04_title" href="https://www.abexperiment.com/ab-testing/book/chapter9.html">Chapter9</a>
+            </li>	
+    <br />
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+ 
+										 		
+                                            					
+										</p>
+										<ul class="link-list">
+											<li> </li>
+											
+										</ul>
+									</section>
+									<section>
+										<header>
+											<h2>Read more</h2>
+										</header>
+										
+										<ul class="link-list">
+											      
+												 
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl01_title" href="https://www.abexperiment.com/">Home</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/">Ab testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl03_title" href="https://www.abexperiment.com/about-us/">About us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl04_title" href="https://www.abexperiment.com/about_us/">About_us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl05_title" href="https://www.abexperiment.com/ab_testing/">Ab_testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl06_title" href="https://www.abexperiment.com/causal-inference/">Causal inference</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl07_title" href="https://www.abexperiment.com/industry/">Industry</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl08_title" href="https://www.abexperiment.com/jobs/">Jobs</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl09_title" href="https://www.abexperiment.com/learn/">Learn</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl10_title" href="https://www.abexperiment.com/offline-experiments/">Offline experiments</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl11_title" href="https://www.abexperiment.com/pricing/">Pricing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl12_title" href="https://www.abexperiment.com/pricing%202/">Pricing 2</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl13_title" href="https://www.abexperiment.com/work/">Work</a>
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+                                            	 <span id="ctl00_ad160c_ad"></span>	
+										</ul>
+									</section>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+								
+		
+
+		  
+	<div id="footer-wrapper">
+				<footer id="footer" class="5grid-layout">
+					<div class="row">
+						<div class="8u">
+						
+							<!-- Links -->
+								<section>
+									<h2><a id="ctl00_footer_footerhead"></a></h2>
+							
+									<div class="5grid">
+										<div class="row">
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl01_title" href="https://www.abexperiment.com/">Home</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/">Ab testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl03_title" href="https://www.abexperiment.com/about-us/">About us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl04_title" href="https://www.abexperiment.com/about_us/">About_us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl05_title" href="https://www.abexperiment.com/ab_testing/">Ab_testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl06_title" href="https://www.abexperiment.com/causal-inference/">Causal inference</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl07_title" href="https://www.abexperiment.com/industry/">Industry</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl08_title" href="https://www.abexperiment.com/jobs/">Jobs</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl09_title" href="https://www.abexperiment.com/learn/">Learn</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl10_title" href="https://www.abexperiment.com/offline-experiments/">Offline experiments</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl11_title" href="https://www.abexperiment.com/pricing/">Pricing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl12_title" href="https://www.abexperiment.com/pricing%202/">Pricing 2</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl13_title" href="https://www.abexperiment.com/work/">Work</a>
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+													
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl01_title" href="https://www.abexperiment.com/ab-testing/book/chapter2.html">Chapter2</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/book/chapter3.html">Chapter3</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl03_title" href="https://www.abexperiment.com/ab-testing/book/chapter6.html">Chapter6</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl04_title" href="https://www.abexperiment.com/ab-testing/book/chapter9.html">Chapter9</a>
+            </li>	
+    <br />
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>					
+			<a id="ctl00_footer_Articlesub1_RepLinks_ctl01_title" href="https://www.abexperiment.com/"><em><b>Home</b></em></a>
+            
+           
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+												</ul>
+											</div>
+										</div>
+									</div>
+								</section>
+
+						</div>
+						<div class="4u">
+							
+							<!-- Blurb -->
+								<section>
+									<h2>About US</h2>
+									<p>
+										
+									</p>
+								</section>
+						
+						</div>
+					</div>
+				</footer>
+			</div>
+
+		<!-- Copyright -->
+
+		<div id="copyright">
+				&copy;  All rights reserved. | Design: <a href="https://www.abexperiment.com/">Home</a> | <a href="https://www.abexperiment.com/privacypolicy.html">Privacy Policy</a>
+		</div>
+		
+
+
+			
+								
+								
+								
+		
+</body>
+</html>

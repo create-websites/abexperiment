@@ -1,0 +1,683 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+	<head id="ctl00_head1"><title>
+	Chapter 6- Missing Data in AB testing | AB testing book
+
+</title><meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<noscript><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-desktop.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-1200px.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-noscript.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style-desktop.css" /></noscript>
+		<script src="https://kreate.blob.core.windows.net/site2/css/5grid/jquery.js"></script>
+		<script src="https://kreate.blob.core.windows.net/site2/css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none&amp;mobileUI.titleBarHeight=55&amp;mobileUI.openerWidth=75&amp;mobileUI.openerText=&lt;"></script>
+		<!--[if lte IE 9]><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style-ie9.css" /><![endif]-->
+	<meta name="description" content="chapter3-randomization
+" /><meta name="keywords" content="chapter3-randomization
+" /></head>
+	<body>
+      <div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1573760292911899";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<body class="subpage">
+			<div id="header-wrapper">
+				
+                <header id="header" class="5grid-layout">
+					<div class="row">
+						<div class="12u">
+						
+							<!-- Logo -->
+							
+                            <h1><a id="ctl00_topheader" class="mobileUI-site-name">Chapter 6- Missing Data in AB testing | AB testing book
+</a></h1>
+							
+							<!-- Nav -->
+								<nav class="mobileUI-site-nav">
+							        <a id="ctl00_hyperlinkHome" href="https://www.abexperiment.com/">Home</a>
+								</nav>
+
+						</div>
+					</div>
+				</header>
+				
+			</div>
+        <div id="content-wrapper">
+				<div id="content">
+					<div class="5grid-layout">
+						<div class="row">
+							<div class="9u">
+
+								
+							
+							
+
+		
+	
+			
+	
+							
+
+								<!-- Main Content -->
+									<section>
+										<header>
+											
+                                             <h2><span id="ctl00_ContentPlaceHolder1_title">Chapter 6- Missing Data in AB testing | AB testing book
+</span></h2>
+											
+										</header>
+										<p>
+                                          <table id="ctl00_ContentPlaceHolder1_RepDetails" cellspacing="0" border="0">
+	<tr>
+		<td>
+
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl01_labeltext"><font color="Black" size="4"><h3>Missing Data in controled experiment</h3></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl02_labeltext"><font color="Black" size="4"></p>Missing data is a common problem in experimental research. It can occur for a variety of reasons, such as participants dropping out of the study, equipment malfunction, or data entry errors. Missing data can complicate the analysis of experimental data and can lead to biased results.</p>
+</p></p>
+</p>There are a number of ways to handle missing data in experimental research. One common approach is to simply delete the cases that have missing data. However, this can lead to a loss of data and can make it difficult to generalize the results of the study.</p>
+</p></p>
+</p>Another approach is to impute the missing data. This involves using statistical methods to fill in the missing values. Imputation can be a more effective way to handle missing data than simply deleting the cases. However, it is important to choose an imputation method that is appropriate for the type of data being analyzed.</p>
+</p></p>
+</p>Finally, it is possible to design experiments that minimize the amount of missing data. This can be done by carefully planning the study and by taking steps to reduce the risk of missing data. For example, researchers can make sure that participants are aware of the importance of completing the study and that they have access to the resources they need to do so.</p>
+</p></p>
+</p>The best way to handle missing data in experimental research depends on the specific circumstances of the study. However, by carefully considering the different options, researchers can minimize the impact of missing data and produce more reliable results.</p>
+</p></p>
+</p>Here are some additional tips for handling missing data in experimental research:</p>
+</p></p>
+</p>Consider the nature of the missing data. Is the missing data random or systematic? If the missing data is random, then it may be less of a problem. However, if the missing data is systematic, then it can bias the results of the study.</p>
+</p>Choose an appropriate imputation method. There are a number of different imputation methods available. The best method to choose depends on the type of data being analyzed and the nature of the missing data.</p>
+</p>Report the amount of missing data. It is important to report the amount of missing data in the study. This will allow other researchers to assess the impact of the missing data on the results of the study.</p>
+</p>Replicate the study. Replicating the study can help to reduce the impact of missing data. If the results of the study are replicated, then it is more likely that the results are not due to the missing data.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl03_labeltext"><font color="Black" size="4"><h4>Missing data in ab testing</h4></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl04_labeltext"><font color="Black" size="4"><h3>Missing Data in AB testing</h3>
+</p>Yes, missing data can be a problem in A/B testing. There are a number of reasons why data might be missing, such as:</p>
+</p>Users may not complete the test.</p>
+</p>Users may not provide all of the required information.</p>
+</p>Data may be lost or corrupted during transmission or storage.</p>
+</p>Missing data can make it difficult to draw accurate conclusions from A/B testing results. For example, if a significant number of users do not complete the test, it may be difficult to determine which variation is actually better.</p>
+</p>There are a number of things that can be done to reduce the risk of missing data in A/B testing, such as:</p>
+</p>Making the test as easy and engaging as possible.</p>
+</p>Providing clear instructions and making sure that users understand what is being asked of them.</p>
+</p>Using a reliable data collection platform.</p>
+</p>Backing up data regularly.</p>
+</p>If missing data does occur, it is important to take steps to address it. For example, you may need to:</p>
+</p>Delete users who did not complete the test.</p>
+</p>Impute missing values.</p>
+</p>Conduct a new test.</p>
+</p>By taking steps to reduce the risk of missing data and addressing it when it does occur, you can improve the accuracy of your A/B testing results.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+
+</td>
+	</tr>
+</table>
+
+								</p> <!-- article finish -->
+										
+										
+								</section>
+
+						
+						
+
+
+
+							</div>
+
+							<div class="3u">
+								
+								<!-- Right Sidebar -->
+									<section>
+										<header>
+											<h2>Topic</h2>
+										</header>
+                                          <p>
+										  
+
+    
+
+
+
+												
+		<li>					
+			<a id="ctl00_articlessub_RepLinks_ctl01_title" href="https://www.abexperiment.com/"><em><b>Home</b></em></a>
+            
+           
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+		
+                                            					
+										</p>
+                                        <p>
+											
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl01_title" href="https://www.abexperiment.com/ab-testing/book/chapter2.html">Chapter2</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/book/chapter3.html">Chapter3</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl03_title" href="https://www.abexperiment.com/ab-testing/book/chapter6.html">Chapter6</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl04_title" href="https://www.abexperiment.com/ab-testing/book/chapter9.html">Chapter9</a>
+            </li>	
+    <br />
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+ 
+										 		
+                                            					
+										</p>
+										<ul class="link-list">
+											<li> </li>
+											
+										</ul>
+									</section>
+									<section>
+										<header>
+											<h2>Read more</h2>
+										</header>
+										
+										<ul class="link-list">
+											      
+												 
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl01_title" href="https://www.abexperiment.com/">Home</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/">Ab testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl03_title" href="https://www.abexperiment.com/about-us/">About us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl04_title" href="https://www.abexperiment.com/about_us/">About_us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl05_title" href="https://www.abexperiment.com/ab_testing/">Ab_testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl06_title" href="https://www.abexperiment.com/causal-inference/">Causal inference</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl07_title" href="https://www.abexperiment.com/industry/">Industry</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl08_title" href="https://www.abexperiment.com/jobs/">Jobs</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl09_title" href="https://www.abexperiment.com/learn/">Learn</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl10_title" href="https://www.abexperiment.com/offline-experiments/">Offline experiments</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl11_title" href="https://www.abexperiment.com/pricing/">Pricing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl12_title" href="https://www.abexperiment.com/pricing%202/">Pricing 2</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl13_title" href="https://www.abexperiment.com/work/">Work</a>
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+                                            	 <span id="ctl00_ad160c_ad"></span>	
+										</ul>
+									</section>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+								
+		
+
+		  
+	<div id="footer-wrapper">
+				<footer id="footer" class="5grid-layout">
+					<div class="row">
+						<div class="8u">
+						
+							<!-- Links -->
+								<section>
+									<h2><a id="ctl00_footer_footerhead"></a></h2>
+							
+									<div class="5grid">
+										<div class="row">
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl01_title" href="https://www.abexperiment.com/">Home</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/">Ab testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl03_title" href="https://www.abexperiment.com/about-us/">About us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl04_title" href="https://www.abexperiment.com/about_us/">About_us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl05_title" href="https://www.abexperiment.com/ab_testing/">Ab_testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl06_title" href="https://www.abexperiment.com/causal-inference/">Causal inference</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl07_title" href="https://www.abexperiment.com/industry/">Industry</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl08_title" href="https://www.abexperiment.com/jobs/">Jobs</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl09_title" href="https://www.abexperiment.com/learn/">Learn</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl10_title" href="https://www.abexperiment.com/offline-experiments/">Offline experiments</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl11_title" href="https://www.abexperiment.com/pricing/">Pricing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl12_title" href="https://www.abexperiment.com/pricing%202/">Pricing 2</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl13_title" href="https://www.abexperiment.com/work/">Work</a>
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+													
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl01_title" href="https://www.abexperiment.com/ab-testing/book/chapter2.html">Chapter2</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/book/chapter3.html">Chapter3</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl03_title" href="https://www.abexperiment.com/ab-testing/book/chapter6.html">Chapter6</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl04_title" href="https://www.abexperiment.com/ab-testing/book/chapter9.html">Chapter9</a>
+            </li>	
+    <br />
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>					
+			<a id="ctl00_footer_Articlesub1_RepLinks_ctl01_title" href="https://www.abexperiment.com/"><em><b>Home</b></em></a>
+            
+           
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+												</ul>
+											</div>
+										</div>
+									</div>
+								</section>
+
+						</div>
+						<div class="4u">
+							
+							<!-- Blurb -->
+								<section>
+									<h2>About US</h2>
+									<p>
+										
+									</p>
+								</section>
+						
+						</div>
+					</div>
+				</footer>
+			</div>
+
+		<!-- Copyright -->
+
+		<div id="copyright">
+				&copy;  All rights reserved. | Design: <a href="https://www.abexperiment.com/">Home</a> | <a href="https://www.abexperiment.com/privacypolicy.html">Privacy Policy</a>
+		</div>
+		
+
+
+			
+								
+								
+								
+		
+</body>
+</html>

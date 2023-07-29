@@ -1,0 +1,805 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+	<head id="ctl00_head1"><title>
+	Chapter 3- Randomization and challenges | AB testing book
+
+</title><meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<noscript><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-desktop.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-1200px.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-noscript.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style-desktop.css" /></noscript>
+		<script src="https://kreate.blob.core.windows.net/site2/css/5grid/jquery.js"></script>
+		<script src="https://kreate.blob.core.windows.net/site2/css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none&amp;mobileUI.titleBarHeight=55&amp;mobileUI.openerWidth=75&amp;mobileUI.openerText=&lt;"></script>
+		<!--[if lte IE 9]><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style-ie9.css" /><![endif]-->
+	<meta name="description" content="chapter3-randomization
+" /><meta name="keywords" content="chapter3-randomization
+" /></head>
+	<body>
+      <div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1573760292911899";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<body class="subpage">
+			<div id="header-wrapper">
+				
+                <header id="header" class="5grid-layout">
+					<div class="row">
+						<div class="12u">
+						
+							<!-- Logo -->
+							
+                            <h1><a id="ctl00_topheader" class="mobileUI-site-name">Chapter 3- Randomization and challenges | AB testing book
+</a></h1>
+							
+							<!-- Nav -->
+								<nav class="mobileUI-site-nav">
+							        <a id="ctl00_hyperlinkHome" href="https://www.abexperiment.com/">Home</a>
+								</nav>
+
+						</div>
+					</div>
+				</header>
+				
+			</div>
+        <div id="content-wrapper">
+				<div id="content">
+					<div class="5grid-layout">
+						<div class="row">
+							<div class="9u">
+
+								
+							
+							
+
+		
+	
+			
+	
+							
+
+								<!-- Main Content -->
+									<section>
+										<header>
+											
+                                             <h2><span id="ctl00_ContentPlaceHolder1_title">Chapter 3- Randomization and challenges | AB testing book
+</span></h2>
+											
+										</header>
+										<p>
+                                          <table id="ctl00_ContentPlaceHolder1_RepDetails" cellspacing="0" border="0">
+	<tr>
+		<td>
+
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl01_labeltext"><font color="Black" size="4"><p>Randomization sound simple but attrition, spillover, mediation impact experiements.  Undertand these before you start experiment.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl02_labeltext"><font color="Black" size="4"><p> AB testing experiments can be susceptible to attrition challenges if the groups being tested are not equally matched in terms of size, demographics, or other important factors. This can lead to results that are not indicative of the true effect of the treatments being tested.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl03_labeltext"><font color="Black" size="4"><h3>Attrition</h3>
+<p>In a controlled experiment, attrition is the loss of participants from the study due to death, illness, relocation, or other reasons. </p>
+<h4>Attrition and bias</h4>
+<p>Attrition can lead to bias if it is not random. </p>
+<h4>Types of attrition</h4>
+<p>There are three types of attrition: </p>
+<li>differential  </li>
+<li>selective </li>
+<li>informative</li>
+<br/>Differential attrition occurs when there is a difference in the rate of attrition between the treatment and control groups. 
+<br/>Selective attrition occurs when there is a difference in the characteristics of those who remain in the study versus those who do not.
+<br/>Informative attrition occurs when the characteristics of those who leave the study are related to the outcome of the study.</font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl04_labeltext"><font color="Black" size="4"><h3>Examples of attrition in abtesting</h3>
+<p>A company was testing two different versions of a landing page for a new product. One version of the page had a longer form that required more information from visitors, while the other version had a shorter form that required less information. The company found that the shorter form had a higher conversion rate, but they also noticed that more visitors dropped out of the test before completing the form. When they investigated further, they found that the visitors who dropped out were more likely to be people who were not interested in the product. This suggests that the attrition bias was caused by the fact that the shorter form was more likely to be seen by people who were not interested in the product in the first place.</p>
+<p>A company was testing two different versions of an email campaign. One version of the email had a more persuasive headline, while the other version had a less persuasive headline. The company found that the more persuasive headline had a higher open rate, but they also noticed that more people unsubscribed from the email list after receiving the more persuasive headline. When they investigated further, they found that the people who unsubscribed were more likely to be people who were already on the email list and who were not interested in the product being promoted. This suggests that the attrition bias was caused by the fact that the more persuasive headline was more likely to be seen by people who were already on the email list and who were not interested in the product in the first place.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl05_labeltext"><font color="Black" size="4"><section></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl06_labeltext"><font color="Black" size="4"></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl07_labeltext"><font color="Black" size="4"><br/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl08_labeltext"><font color="Black" size="4"><h3>Examples - spillover in AB testing</h3>
+<p>Here are a few real examples of A/B testing in which spillover played a role:</p>
+<p>A company was testing two different versions of a landing page for a new product. One version of the page had a social media sharing button, while the other version did not. The company found that the version with the social media sharing button had a higher conversion rate, but they also noticed that more people who saw the page with the social media sharing button shared it on social media. This suggests that the spillover effect was caused by the fact that people who saw the page with the social media sharing button were more likely to be interested in the product and to share it with their friends.</p>
+<p>A company was testing two different versions of an email campaign. One version of the email had a call to action that asked people to visit the company's website, while the other version did not. The company found that the version with the call to action had a higher click-through rate, but they also noticed that more people who saw the email with the call to action visited the company's website. This suggests that the spillover effect was caused by the fact that people who saw the email with the call to action were more likely to be interested in the company's products or services and to visit the company's website.</p>
+<p>A company was testing two different versions of a checkout page. One version of the checkout page had a loyalty program sign-up form, while the other version did not. The company found that the version with the loyalty program sign-up form had a higher conversion rate, but they also noticed that more people who saw the page with the loyalty program sign-up form signed up for the loyalty program. This suggests that the spillover effect was caused by the fact that people who saw the page with the loyalty program sign-up form were more likely to be interested in the company's products or services and to sign up for the loyalty program.</p>
+<p>These are just a few examples of how spillover can affect A/B testing results. It is important to be aware of this bias and to take steps to mitigate it. Some of the ways to mitigate spillover bias include:</p>
+<p></p>
+<p>Using a control group that is not exposed to the treatment.</p>
+<p>Using a counterfactual analysis to estimate the effect of the treatment.</p>
+<p>Using a Bayesian approach to A/B testing.</p>
+<p>By taking these steps, you can increase the validity and reliability of your A/B testing results and make better decisions for your business.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl09_labeltext"><font color="Black" size="4"></section></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl10_labeltext"><font color="Black" size="4"><section></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl11_labeltext"><font color="Black" size="4"><h3>Mediation</h3>
+<p>In a controlled experiment, mediation is a statistical technique that is used to determine the extent to which the effect of an independent variable (IV) on a dependent variable (DV) is mediated by an intervening variable (M). Mediation is applicable in A/B testing, as it can be used to determine the extent to which the effect of a treatment on an outcome is mediated by a mediating variable.</p>
+<p>For example, a company might want to test the effect of a new marketing campaign on sales. The company could randomly assign customers to two groups: one group would be exposed to the new marketing campaign, and the other group would not be exposed to the new marketing campaign. The company could then measure sales for both groups.</p>
+<p>If the company finds that the new marketing campaign has a positive effect on sales, it might want to know why the new marketing campaign is effective. Mediation analysis could be used to determine the extent to which the effect of the new marketing campaign on sales is mediated by a mediating variable, such as brand awareness or customer interest.</p>
+<p>If the company finds that brand awareness is a mediator, this would mean that the new marketing campaign is effective because it increases brand awareness, and that increased brand awareness in turn leads to increased sales.</p>
+<p>Mediation analysis can be a useful tool for understanding the causal effects of interventions. It can be used to determine the extent to which the effect of an intervention on an outcome is mediated by a mediating variable. This information can be used to improve the design and implementation of interventions.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl12_labeltext"><font color="Black" size="4"></section></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl13_labeltext"><font color="Black" size="4"><section></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl14_labeltext"><font color="Black" size="4"><h3> Heterogeneity, covariates and design in controlled experiment</h3>
+<p>Heterogeneity can be explored by looking at the variability in the results of the controlled experiment. This can be done by looking at the standard deviation, range, or other measures of variability. Covariates can be explored by looking at the relationship between the independent variable and the dependent variable. This can be done by looking at the correlation between the two variables. Design can be explored by looking at the way the experiment is designed. This can be done by looking at the way the independent and dependent variables are assigned to the different groups.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl15_labeltext"><font color="Black" size="4"><h3>Hetrogeneity in controlled experiments</h3>
+<p>Heterogeneity is the variability in a population or sample. In a controlled experiment, heterogeneity can be a source of confounding, meaning that it can make it difficult to determine the true effect of the independent variable.</p>
+<p></p>
+<p>There are a number of ways to explore heterogeneity in a controlled experiment. One way is to use a factorial design, which is a design that includes multiple independent variables. This allows the researcher to control for the effects of heterogeneity by looking at the interaction between the independent variables.</p>
+<p></p>
+<p>Another way to explore heterogeneity is to use a stratified random sample. This is a sample that is divided into groups based on the levels of the independent variables. The researcher then randomly selects participants from each group. This helps to ensure that the sample is representative of the population and that the effects of heterogeneity are minimized.</p>
+<p></p>
+<p>Covariates are variables that are correlated with the independent variable but are not of primary interest in the study. In a controlled experiment, covariates can be a source of confounding, meaning that they can make it difficult to determine the true effect of the independent variable.</p>
+<p></p>
+<p>There are a number of ways to deal with covariates in a controlled experiment. One way is to control for them statistically. This can be done by using a regression analysis to adjust for the effects of the covariates.</p>
+<p></p>
+<p>Another way to deal with covariates is to remove them from the study. This can be done by matching participants on the covariates or by using a statistical technique called propensity score matching.</p>
+<p></p>
+<p>The design of a controlled experiment can also affect the extent to which heterogeneity and covariates are a problem. A well-designed experiment will minimize the effects of heterogeneity and covariates by using a factorial design, a stratified random sample, and statistical controls.</p>
+<p></p>
+<p>By carefully considering the issues of heterogeneity, covariates, and design, researchers can increase the confidence that the results of their controlled experiments are valid.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl16_labeltext"><font color="Black" size="4"></section/></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+
+</td>
+	</tr>
+</table>
+
+								</p> <!-- article finish -->
+										
+										
+								</section>
+
+						
+						
+
+
+
+							</div>
+
+							<div class="3u">
+								
+								<!-- Right Sidebar -->
+									<section>
+										<header>
+											<h2>Topic</h2>
+										</header>
+                                          <p>
+										  
+
+    
+
+
+
+												
+		<li>					
+			<a id="ctl00_articlessub_RepLinks_ctl01_title" href="https://www.abexperiment.com/"><em><b>Home</b></em></a>
+            
+           
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+		
+                                            					
+										</p>
+                                        <p>
+											
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl01_title" href="https://www.abexperiment.com/ab-testing/book/chapter2.html">Chapter2</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/book/chapter3.html">Chapter3</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl03_title" href="https://www.abexperiment.com/ab-testing/book/chapter6.html">Chapter6</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl04_title" href="https://www.abexperiment.com/ab-testing/book/chapter9.html">Chapter9</a>
+            </li>	
+    <br />
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+ 
+										 		
+                                            					
+										</p>
+										<ul class="link-list">
+											<li> </li>
+											
+										</ul>
+									</section>
+									<section>
+										<header>
+											<h2>Read more</h2>
+										</header>
+										
+										<ul class="link-list">
+											      
+												 
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl01_title" href="https://www.abexperiment.com/">Home</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/">Ab testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl03_title" href="https://www.abexperiment.com/about-us/">About us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl04_title" href="https://www.abexperiment.com/about_us/">About_us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl05_title" href="https://www.abexperiment.com/ab_testing/">Ab_testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl06_title" href="https://www.abexperiment.com/causal-inference/">Causal inference</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl07_title" href="https://www.abexperiment.com/industry/">Industry</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl08_title" href="https://www.abexperiment.com/jobs/">Jobs</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl09_title" href="https://www.abexperiment.com/learn/">Learn</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl10_title" href="https://www.abexperiment.com/offline-experiments/">Offline experiments</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl11_title" href="https://www.abexperiment.com/pricing/">Pricing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl12_title" href="https://www.abexperiment.com/pricing%202/">Pricing 2</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl13_title" href="https://www.abexperiment.com/work/">Work</a>
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+                                            	 <span id="ctl00_ad160c_ad"></span>	
+										</ul>
+									</section>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+								
+		
+
+		  
+	<div id="footer-wrapper">
+				<footer id="footer" class="5grid-layout">
+					<div class="row">
+						<div class="8u">
+						
+							<!-- Links -->
+								<section>
+									<h2><a id="ctl00_footer_footerhead"></a></h2>
+							
+									<div class="5grid">
+										<div class="row">
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl01_title" href="https://www.abexperiment.com/">Home</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/">Ab testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl03_title" href="https://www.abexperiment.com/about-us/">About us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl04_title" href="https://www.abexperiment.com/about_us/">About_us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl05_title" href="https://www.abexperiment.com/ab_testing/">Ab_testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl06_title" href="https://www.abexperiment.com/causal-inference/">Causal inference</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl07_title" href="https://www.abexperiment.com/industry/">Industry</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl08_title" href="https://www.abexperiment.com/jobs/">Jobs</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl09_title" href="https://www.abexperiment.com/learn/">Learn</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl10_title" href="https://www.abexperiment.com/offline-experiments/">Offline experiments</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl11_title" href="https://www.abexperiment.com/pricing/">Pricing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl12_title" href="https://www.abexperiment.com/pricing%202/">Pricing 2</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl13_title" href="https://www.abexperiment.com/work/">Work</a>
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+													
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl01_title" href="https://www.abexperiment.com/ab-testing/book/chapter2.html">Chapter2</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/book/chapter3.html">Chapter3</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl03_title" href="https://www.abexperiment.com/ab-testing/book/chapter6.html">Chapter6</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl04_title" href="https://www.abexperiment.com/ab-testing/book/chapter9.html">Chapter9</a>
+            </li>	
+    <br />
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>					
+			<a id="ctl00_footer_Articlesub1_RepLinks_ctl01_title" href="https://www.abexperiment.com/"><em><b>Home</b></em></a>
+            
+           
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+												</ul>
+											</div>
+										</div>
+									</div>
+								</section>
+
+						</div>
+						<div class="4u">
+							
+							<!-- Blurb -->
+								<section>
+									<h2>About US</h2>
+									<p>
+										
+									</p>
+								</section>
+						
+						</div>
+					</div>
+				</footer>
+			</div>
+
+		<!-- Copyright -->
+
+		<div id="copyright">
+				&copy;  All rights reserved. | Design: <a href="https://www.abexperiment.com/">Home</a> | <a href="https://www.abexperiment.com/privacypolicy.html">Privacy Policy</a>
+		</div>
+		
+
+
+			
+								
+								
+								
+		
+</body>
+</html>

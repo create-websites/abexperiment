@@ -1,0 +1,9 @@
+Web development,  A/B testing are 2 different fields.  They require different skill sets.
+What if you can integrate this?
+A business owner chose knobs - show layout 1 and 2 on landing page, do ab test and optimize for  user time spent on landing page.
+With one knob change - you can generate web UI, experiment and validate/invalidate hypothesis.
+<br/>
+You want to show product recommendation at time of checkout and see whether it increase sales.
+It require backend change, front end change and doing abtesting.
+Using dataknobs you can switch on/off recommendation feature.  With other knob you can generate 2 variation and  do ab testing.
+<br/>

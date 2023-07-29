@@ -1,0 +1,707 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html>
+	<head id="ctl00_head1"><title>
+	Chapter 9- Advance topics | AB testing book
+
+</title><meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<noscript><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-desktop.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-1200px.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/5grid/core-noscript.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style.css" /><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style-desktop.css" /></noscript>
+		<script src="https://kreate.blob.core.windows.net/site2/css/5grid/jquery.js"></script>
+		<script src="https://kreate.blob.core.windows.net/site2/css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none&amp;mobileUI.titleBarHeight=55&amp;mobileUI.openerWidth=75&amp;mobileUI.openerText=&lt;"></script>
+		<!--[if lte IE 9]><link rel="stylesheet" href="https://kreate.blob.core.windows.net/site2/css/style-ie9.css" /><![endif]-->
+	<meta name="description" content="chapter3-randomization
+" /><meta name="keywords" content="chapter3-randomization
+" /></head>
+	<body>
+      <div id="fb-root"></div>
+<script>(function (d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.3&appId=1573760292911899";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<body class="subpage">
+			<div id="header-wrapper">
+				
+                <header id="header" class="5grid-layout">
+					<div class="row">
+						<div class="12u">
+						
+							<!-- Logo -->
+							
+                            <h1><a id="ctl00_topheader" class="mobileUI-site-name">Chapter 9- Advance topics | AB testing book
+</a></h1>
+							
+							<!-- Nav -->
+								<nav class="mobileUI-site-nav">
+							        <a id="ctl00_hyperlinkHome" href="https://www.abexperiment.com/">Home</a>
+								</nav>
+
+						</div>
+					</div>
+				</header>
+				
+			</div>
+        <div id="content-wrapper">
+				<div id="content">
+					<div class="5grid-layout">
+						<div class="row">
+							<div class="9u">
+
+								
+							
+							
+
+		
+	
+			
+	
+							
+
+								<!-- Main Content -->
+									<section>
+										<header>
+											
+                                             <h2><span id="ctl00_ContentPlaceHolder1_title">Chapter 9- Advance topics | AB testing book
+</span></h2>
+											
+										</header>
+										<p>
+                                          <table id="ctl00_ContentPlaceHolder1_RepDetails" cellspacing="0" border="0">
+	<tr>
+		<td>
+
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl01_labeltext"><font color="Black" size="4"><h3>Spatial Spillover</h3></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl02_labeltext"><font color="Black" size="4"></p>n an experiment, spatial spillover is a phenomenon in which the outcome of one unit is affected by the outcomes of other units that are spatially proximate. For example, if you are conducting an experiment to test the effectiveness of a new fertilizer on crop yields, the yields of crops in neighboring plots may also be affected by the fertilizer, even if they were not directly treated.</p>
+</p></p>
+</p>Spatial spillovers can be caused by a number of factors, such as the movement of people, goods, and information, or the shared use of resources. They can also be caused by the physical environment, such as the presence of rivers or mountains.</p>
+</p></p>
+</p>Spatial spillovers can complicate the design and analysis of experiments. For example, if you are not aware of spatial spillovers, you may mistakenly conclude that the fertilizer is not effective, when in fact the yields of crops in neighboring plots are being boosted by the fertilizer.</p>
+</p></p>
+</p>There are a number of ways to deal with spatial spillovers in experiments. One way is to include spatial controls in the analysis. This means controlling for the outcomes of neighboring units. Another way is to use a spatial design, such as a randomized block design. This type of design ensures that the treatment is applied to units that are spatially proximate, so that the effects of spatial spillovers can be estimated and accounted for.</p>
+</p></p>
+</p>Here are some examples of spatial spillovers:</p>
+</p></p>
+</p>The use of pesticides in one field can affect the yields of crops in neighboring fields.</p>
+</p>The construction of a new road can increase traffic noise and pollution in neighboring areas.</p>
+</p>The opening of a new business can attract new customers to neighboring businesses.</p>
+</p>Spatial spillovers can be a challenge for experimental design, but they can also be a valuable source of information about the way that systems work. By carefully considering the effects of spatial spillovers, researchers can design experiments that are more likely to produce valid results.</p>
+</p></p>
+</p></p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl03_labeltext"><font color="Black" size="4"><h4>Spatial spill over in AB Testing</h4></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl04_labeltext"><font color="Black" size="4"><h3>Spatial spill over in A/B tsting</h3>
+</p>Yes, spatial spillover can be applicable in A/B testing. Here are some examples:</p>
+</p>You are testing the effectiveness of a new ad campaign on website traffic. You might find that the ad campaign is more effective on websites that are geographically close to each other, because users in those areas are more likely to be familiar with the businesses that are advertising.</p>
+</p>You are testing the effectiveness of a new loyalty program on customer retention. You might find that the loyalty program is more effective for customers who live near each other, because they are more likely to interact with each other and talk about the program.</p>
+</p>You are testing the effectiveness of a new product on sales. You might find that the product is more successful in stores that are located near each other, because customers in those areas are more likely to be aware of the product and to be willing to try it.</p>
+</p>In all of these cases, the spatial spillover is caused by the fact that users or customers are connected to each other through their physical location. This connection can lead to information and ideas being shared, which can in turn affect the way that users or customers respond to a treatment.</p>
+</p>It is important to note that spatial spillover is not always a problem. In some cases, it can actually be beneficial. For example, if you are testing the effectiveness of a new product on sales, you might want to test it in stores that are located near each other, so that you can take advantage of the spatial spillover and increase the chances of the product being successful.</p>
+</p>However, it is important to be aware of the potential for spatial spillover when designing A/B tests. If you are not aware of the potential for spatial spillover, you may mistakenly conclude that a treatment is not effective, when in fact the treatment is being affected by spatial spillover.</p>
+</p>There are a number of ways to deal with spatial spillover in A/B testing. One way is to use a spatial design, such as a randomized block design. This type of design ensures that the treatment is applied to units that are spatially proximate, so that the effects of spatial spillovers can be estimated and accounted for.</p>
+</p>Another way to deal with spatial spillover is to include spatial controls in the analysis. This means controlling for the outcomes of neighboring units.</p>
+</p>Finally, you can also try to reduce the potential for spatial spillover by designing your A/B test in a way that minimizes the connections between users or customers. For example, you might test your new product in stores that are located in different parts of the country, so that there is less chance of users or customers in one store being influenced by users or customers in another store.</p>
+</p>By carefully considering the potential for spatial spillover, you can design A/B tests that are more likely to produce valid results.</p></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl05_labeltext"><font color="Black" size="4"><h4>Varying Treatment effect in controlled experiment</h4></font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+					
+
+   <span id="ctl00_ContentPlaceHolder1_RepDetails_ctl06_labeltext"><font color="Black" size="4"><h3>Varying tretment with subject characterstics</h3>
+</p>You should design an experiment in which the treatment varies with subject characteristics when you believe that the treatment may have different effects on different types of subjects. For example, you might design an experiment to test the effectiveness of a new drug for treating depression. You might hypothesize that the drug is more effective for people who have been diagnosed with depression for a shorter period of time. In this case, you would want to design an experiment in which the treatment is randomly assigned to subjects based on their length of diagnosis. This would allow you to compare the effects of the drug on people with different lengths of diagnosis and to see if the drug is more effective for one group than the other.</p>
+</p>Here are some other examples of when you might want to design an experiment in which the treatment varies with subject characteristics:</p>
+</p>You are testing the effectiveness of a new educational program for students with different learning styles.</p>
+</p>You are testing the effectiveness of a new weight loss program for people with different levels of obesity.</p>
+</p>You are testing the effectiveness of a new drug for treating different types of cancer.</p>
+</p>In all of these cases, you would want to design an experiment in which the treatment is randomly assigned to subjects based on their characteristics. This would allow you to compare the effects of the treatment on different groups of subjects and to see if the treatment is more effective for one group than the other.</p>
+</p>It is important to note that there are some risks associated with designing experiments in which the treatment varies with subject characteristics. For example, if the treatment is not randomly assigned, it may be difficult to determine if the observed differences between groups are due to the treatment or to other factors, such as the subjects' characteristics. Additionally, if the treatment is not effective for all groups of subjects, it may be difficult to generalize the results of the experiment to other populations.</p>
+</p>Despite these risks, designing experiments in which the treatment varies with subject characteristics can be a valuable way to test the effectiveness of new treatments and to improve our understanding of how different treatments work for different people.</p>
+
+</font></span>
+
+</td>
+	</tr><tr>
+		<td>
+
+
+
+</td>
+	</tr>
+</table>
+
+								</p> <!-- article finish -->
+										
+										
+								</section>
+
+						
+						
+
+
+
+							</div>
+
+							<div class="3u">
+								
+								<!-- Right Sidebar -->
+									<section>
+										<header>
+											<h2>Topic</h2>
+										</header>
+                                          <p>
+										  
+
+    
+
+
+
+												
+		<li>					
+			<a id="ctl00_articlessub_RepLinks_ctl01_title" href="https://www.abexperiment.com/"><em><b>Home</b></em></a>
+            
+           
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+		
+                                            					
+										</p>
+                                        <p>
+											
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl01_title" href="https://www.abexperiment.com/ab-testing/book/chapter2.html">Chapter2</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/book/chapter3.html">Chapter3</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl03_title" href="https://www.abexperiment.com/ab-testing/book/chapter6.html">Chapter6</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_Articlesub1_RepLinks_ctl04_title" href="https://www.abexperiment.com/ab-testing/book/chapter9.html">Chapter9</a>
+            </li>	
+    <br />
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+ 
+										 		
+                                            					
+										</p>
+										<ul class="link-list">
+											<li> </li>
+											
+										</ul>
+									</section>
+									<section>
+										<header>
+											<h2>Read more</h2>
+										</header>
+										
+										<ul class="link-list">
+											      
+												 
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl01_title" href="https://www.abexperiment.com/">Home</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/">Ab testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl03_title" href="https://www.abexperiment.com/about-us/">About us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl04_title" href="https://www.abexperiment.com/about_us/">About_us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl05_title" href="https://www.abexperiment.com/ab_testing/">Ab_testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl06_title" href="https://www.abexperiment.com/causal-inference/">Causal inference</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl07_title" href="https://www.abexperiment.com/industry/">Industry</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl08_title" href="https://www.abexperiment.com/jobs/">Jobs</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl09_title" href="https://www.abexperiment.com/learn/">Learn</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl10_title" href="https://www.abexperiment.com/offline-experiments/">Offline experiments</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl11_title" href="https://www.abexperiment.com/pricing/">Pricing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl12_title" href="https://www.abexperiment.com/pricing%202/">Pricing 2</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_articleshome_RepLinks_ctl13_title" href="https://www.abexperiment.com/work/">Work</a>
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+                                            	 <span id="ctl00_ad160c_ad"></span>	
+										</ul>
+									</section>
+
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+								
+		
+
+		  
+	<div id="footer-wrapper">
+				<footer id="footer" class="5grid-layout">
+					<div class="row">
+						<div class="8u">
+						
+							<!-- Links -->
+								<section>
+									<h2><a id="ctl00_footer_footerhead"></a></h2>
+							
+									<div class="5grid">
+										<div class="row">
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl01_title" href="https://www.abexperiment.com/">Home</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/">Ab testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl03_title" href="https://www.abexperiment.com/about-us/">About us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl04_title" href="https://www.abexperiment.com/about_us/">About_us</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl05_title" href="https://www.abexperiment.com/ab_testing/">Ab_testing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl06_title" href="https://www.abexperiment.com/causal-inference/">Causal inference</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl07_title" href="https://www.abexperiment.com/industry/">Industry</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl08_title" href="https://www.abexperiment.com/jobs/">Jobs</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl09_title" href="https://www.abexperiment.com/learn/">Learn</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl10_title" href="https://www.abexperiment.com/offline-experiments/">Offline experiments</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl11_title" href="https://www.abexperiment.com/pricing/">Pricing</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl12_title" href="https://www.abexperiment.com/pricing%202/">Pricing 2</a>
+            </li>	
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_Articleshome3_RepLinks_ctl13_title" href="https://www.abexperiment.com/work/">Work</a>
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+													
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl01_title" href="https://www.abexperiment.com/ab-testing/book/chapter2.html">Chapter2</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl02_title" href="https://www.abexperiment.com/ab-testing/book/chapter3.html">Chapter3</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl03_title" href="https://www.abexperiment.com/ab-testing/book/chapter6.html">Chapter6</a>
+            </li>	
+    <br />
+
+
+
+
+
+												
+		<li>								
+		<a id="ctl00_footer_articles1_RepLinks_ctl04_title" href="https://www.abexperiment.com/ab-testing/book/chapter9.html">Chapter9</a>
+            </li>	
+    <br />
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+
+    
+
+
+
+												
+		<li>					
+			<a id="ctl00_footer_Articlesub1_RepLinks_ctl01_title" href="https://www.abexperiment.com/"><em><b>Home</b></em></a>
+            
+           
+            </li>	
+
+
+
+
+
+
+
+             
+ 
+ 
+ 
+
+												</ul>
+											</div>
+											<div class="3u">
+												<ul class="link-list last-child">
+													
+												</ul>
+											</div>
+										</div>
+									</div>
+								</section>
+
+						</div>
+						<div class="4u">
+							
+							<!-- Blurb -->
+								<section>
+									<h2>About US</h2>
+									<p>
+										
+									</p>
+								</section>
+						
+						</div>
+					</div>
+				</footer>
+			</div>
+
+		<!-- Copyright -->
+
+		<div id="copyright">
+				&copy;  All rights reserved. | Design: <a href="https://www.abexperiment.com/">Home</a> | <a href="https://www.abexperiment.com/privacypolicy.html">Privacy Policy</a>
+		</div>
+		
+
+
+			
+								
+								
+								
+		
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>AB Experiment - Online AB test and offline experiments</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="AB Experiment - Do AB testing on online ecommerce site, offline experiment on data. Use ML approach for causal inference." />
+		<meta name="keywords" content="" />
+		<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,800" rel="stylesheet" type="text/css" />
+		<link href="https://fonts.googleapis.com/css?family=Oleo+Script:400" rel="stylesheet" type="text/css" />
+		<script src="https://testing.abexperiment.com/site5/css/5grid/jquery.js"></script>
+		<script src="https://testing.abexperiment.com/site5/css/5grid/init.js?use=mobile,desktop,1000px&amp;mobileUI=1&amp;mobileUI.theme=none&amp;mobileUI_titleBarOverlaid=1&amp;mobileUI_titleBarHeight=60&amp;viewport_is1000px=1060&amp;mobileUI_openerWidth=80"></script>
+		<noscript>
+			<link rel="stylesheet" href="https://testing.abexperiment.com/site5/css/5grid/core.css" />
+			<link rel="stylesheet" href="https://testing.abexperiment.com/site5/css/5grid/core-desktop.css" />
+			<link rel="stylesheet" href="https://testing.abexperiment.com/site5/css/5grid/core-1200px.css" />
+			<link rel="stylesheet" href="https://testing.abexperiment.com/site5/css/5grid/core-noscript.css" />
+			<link rel="stylesheet" href="https://testing.abexperiment.com/site5/css/style.css" />
+			<link rel="stylesheet" href="https://testing.abexperiment.com/site5/css/style-desktop.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+		<!--[if lte IE 7]><link rel="stylesheet" href="css/ie7.css" /><![endif]-->
+	</head>
+	<body class="homepage">
+
+		<!-- Header Wrapper -->
+			<div id="header-wrapper">
+				<div class="5grid-layout">
+					<div class="row">
+						<div class="12u">
+						
+							<!-- Header -->
+								<header id="header">
+								
+									<!-- Logo -->
+										<div id="logo">
+											<h1><a href="#" class="mobileUI-site-name">AB</a></h1>
+											<span>Experiment</span>
+										</div>
+									
+									<!-- Nav -->
+										<nav id="nav" class="mobileUI-site-nav">
+											<ul>
+												<li class="current_page_item"><a href="index.html">Home</a></li>
+												<li><a href="left-sidebar.html">Experiment with Web UX</a></li>
+												<li><a href="right-sidebar.html">Experiment with data dials</a></li>
+												<li><a href="no-sidebar.html">Offline experiment for insight</a></li>
+											</ul>
+										</nav>
+								
+								</header>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		<!-- Banner Wrapper -->
+			<div id="banner-wrapper">
+				<div class="5grid-layout">
+					<div class="row">
+						<div class="12u">
+						
+							<!-- Banner -->
+								<div id="banner" class="box">
+
+									<div class="5grid">
+										<div class="row">
+											<div class="7u">
+												<h2>We provide capabilities to</h2>
+												<p>Design Experiment, Run experiment at scale, intrepret result and make changes </p>
+											</div>
+											<div class="5u">
+												<ul>
+													<li><a href="work/" class="button button-big button-icon button-icon-rarrow">Ok let's go</a></li>
+													<li><a href="learn/" class="button button-alt button-big button-icon button-icon-question">Learn AB test</a></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								
+								</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		
+		<!-- Features Wrapper -->
+			<div id="features-wrapper">
+				<div class="5grid-layout">
+					<div class="row">
+						<div class="4u">
+						
+							<!-- Box -->
+								<section class="box box-feature">
+									<a href="#" class="image image-full"><img src="https://storage.googleapis.com/a3_visual/other/photos300/image009.jpg" alt="" /></a>
+									<div class="inner">
+										<header>
+											<h2>Website dials</h2>
+											<span class="byline">For online experiments</span>
+										</header>
+										<p>Which online options will be better? Human make choices and most of time are not right.
+										AB Experiment let you generate online variations and let you experiment and conclude.</p>
+									</div>
+								</section>
+
+						</div>
+						<div class="4u">
+						
+							<!-- Box -->
+								<section class="box box-feature">
+									<a href="#" class="image image-full"><img src="https://storage.googleapis.com/a3_visual/other/photos300/image003.jpg" alt="" /></a>
+									<div class="inner">
+										<header>
+											<h2>Data dials</h2>
+											<span class="byline">For online and offline experiments</span>
+										</header>
+										<p>Should you display Product name, Product name + rating or provide Product description with price warranty. Displaying which option will increase conversion
+										AB Experiment data dials let you make such changes and experimente with ease.</p>
+									</div>
+								</section>
+
+						</div>
+						<div class="4u">
+						
+							<!-- Box -->
+								<section class="box box-feature last">
+									<a href="#" class="image image-full"><img src="https://storage.googleapis.com/a3_visual/other/photos300/image014.jpg" alt="" /></a>
+									<div class="inner">
+										<header>
+											<h2>Offline  experiment and Causal inference</h2>
+											<span class="byline">Find treasure in data</span>
+										</header>
+										<p>Tringulate evidence from multiple data sources, apply variety of data transformation, machine learning approaches 
+										   to identify in hidden relationship and do what-if analysis</p>
+									</div>
+								</section>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<!-- Main Wrapper -->
+			<div id="main-wrapper">
+				<div class="5grid-layout">
+					<div class="row">
+						<div class="4u">
+						
+							<!-- Sidebar -->
+								<div id="sidebar">
+									<section class="widget-thumbnails">
+										<h3>Experimentation </h3>
+										<div class="do-5grid grid">
+											<div class="row">
+												<div class="do-6u"><a href="https://www.experiment.com/web/" class="image image-full x"><img src="https://testing.abexperiment.com/site5/images/pic04.jpg" alt="" /></a></div>
+												<div class="do-6u"><a href="https://www.experiment.com/data/" class="image image-full y"><img src="https://testing.abexperiment.com/site5/images/pic05.jpg" alt="" /></a></div>
+											</div>
+											<div class="row">
+												<div class="do-6u"><a href="https://www.experiment.com/offline/" class="image image-full x"><img src="https://testing.abexperiment.com/site5/images/pic06.jpg" alt="" /></a></div>
+												<div class="do-6u"><a href="https://www.experiment.com/causal/" class="image image-full y"><img src="https://testing.abexperiment.com/site5/images/pic07.jpg" alt="" /></a></div>
+											</div>
+										</div>
+										<a href="https://www.abexperiment.com/" class="button button-icon button-icon-paper">Experimentation Guide </a>
+									</section>
+								</div>
+						
+						</div>
+						<div class="8u">
+
+							<!-- Content -->
+								<div id="content">
+									<section class="last">
+										<h2>Experimentation - key to digital strategy</h2>
+										<p>Jeff Bezos said "Our success at Amazon is a function of how many experiment we run every day" 
+										<br/>To invent you have to do an experiment. A high tech business should be able to define hypothesis, 
+										design expriment, run these experiments at scale and evaluate result. Even if experimentation is 
+										indispensable for innovation, most businesses find it hard to implement experiments. It require 
+										diversity of skill and task to enable effective experiment.
+										<br/>AB Experiment building block let business focus on defining hypothesis, validating result and 
+										abstract the task for managing ab-test, modeling, what-if analysis, web and UX changes.
+										</p>
+									
+										<a href="https://www.abexperiment.com/" class="button button-icon button-icon-rarrow">Work with AB Experiment</a>
+									</section>
+								</div>
+
+						</div>
+					</div>
+				</div>
+			</div>
+
+		<!-- Footer Wrapper -->
+			<div id="footer-wrapper">
+				<footer id="footer" class="5grid-layout">
+					<div class="row">
+						<div class="3u">
+						
+							<!-- Links -->
+								<section class="widget-links">
+									<h2>How we reduce cost of experiments</h2>
+									<ul class="style2">
+										<li><a href="blog.html">Blog</a></li>
+										<li><a href="readiness">Readiness for AB Experiment</a></li>
+										<li><a href="sample-size.html">Link</a></li>
+										<li><a href="#">Link</a></li>
+										<li><a href="#">Link</a></li>
+									</ul>
+								</section>
+						
+						</div>
+						<div class="3u">
+						
+							<!-- Links -->
+								<section class="widget-links">
+									<h2>Industry Examples and Learnings</h2>
+									<ul class="style2">
+										<li><a href="industry/Microsoft/">Microsoft</a></li>
+										<li><a href="industry/Google">Google</a></li>
+										<li><a href="industry/Amazon">Amazon</a></li>
+										<li><a href="#">Link</a></li>
+										<li><a href="#">Link</a></li>
+									</ul>
+								</section>
+						
+						</div>
+						<div class="3u">
+						
+							<!-- Links -->
+								<section class="widget-links">
+									<h2>FAQ</h2>
+									<ul class="style2">
+										<li><a href="#">What is good experiment vs bad experiment</a></li>
+										<li><a href="#">How much traffic is required for online experiment</a></li>
+										<li><a href="#">How many days we should run experiment to make conclusion</a></li>
+										<li><a href="#">In what situations we should avoid experimentation</a></li>
+										<li><a href="readiness.html">What are pre requisites for running a/b test</a></li>
+										<li><a href="#">Others</a></li>
+									</ul>
+								</section>
+						
+						</div>
+						<div class="3u">
+						
+							<!-- Contact -->
+								<section class="widget-contact last">
+									<h2>Contact Us</h2>
+									<ul>
+										<li><a href="#" class="twitter">Twitter</a></li>
+										<li><a href="https://www.facebook.com/abexperiment/" class="facebook" target="_blank">Facebook</a></li>
+										<li><a href="https://www.linkedin.com/company/abexperiment/" class="Linkedin" target="blank">Linkedin</a></li>
+										<li><a href="#" class="googleplus">Google+</a></li>
+									</ul>
+									<p><br />
+									Bellevue, WA<br />
+									2105704930</p>
+								</section>
+						
+						</div>
+					</div>
+					<div class="row">
+						<div class="12u">
+							<div id="copyright">
+								&copy; AB Experiment. All rights reserved. | Images: <a href="https://www.abexperiment.com/">AB Experiment</a> | Design: <a href="https://www.kreatewebsites.com/" target="_blank">Kreate Websites</a>
+							</div>
+						</div>
+					</div>
+				</footer>
+			</div>
+
+	</body>
+</html>
