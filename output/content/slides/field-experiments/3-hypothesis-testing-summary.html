@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infographic: The Path of Statistical Inference</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues (#00A1E4, #00B4D8, #48CAE4, #90E0EF, #ADE8F4) -->
+    <!-- Application Structure Plan: The infographic follows a logical narrative flow, starting with the core problem (Population vs. Sample), explaining the theoretical solution (Sampling Distributions), detailing the practical framework (Hypothesis Testing Steps), clarifying the decision criteria (p-value), outlining the risks (Errors), and finally, showing how to quantify uncertainty (Confidence Intervals). This step-by-step story is the most effective way to guide a user through a complex statistical process. -->
+    <!-- Visualization & Content Choices: 
+        - The Goal: Report Info -> Statistical Inference. Goal -> Inform. Viz -> Pictograph with Unicode characters and a large heading. Justification -> Simple, direct, and visually establishes the core challenge. Library -> HTML/CSS.
+        - The Bridge: Report Info -> Sampling Distributions/CLT. Goal -> Explain. Viz -> Histogram. Justification -> The best way to visually prove the Central Limit Theorem is to show the distribution of sample means forming a bell curve. Library -> Chart.js.
+        - The Framework: Report Info -> 4 Steps of Hypothesis Testing. Goal -> Organize. Viz -> Numbered list with icons. Justification -> A step-by-step process is best shown as a clear, numbered list for easy recall. Library -> HTML/CSS.
+        - The Verdict: Report Info -> p-value vs. Alpha. Goal -> Compare. Viz -> Custom HTML/CSS visualization of a scale. Justification -> A scale is an intuitive metaphor for weighing evidence (p-value) against a standard of proof (alpha). Library -> HTML/CSS.
+        - The Risks: Report Info -> Type I/II Errors. Goal -> Organize/Compare. Viz -> HTML Table (2x2 Matrix). Justification -> A 2x2 matrix is the standard, most effective way to display the relationship between reality and a decision, clearly showing the two types of correct decisions and two types of errors. Library -> HTML/CSS.
+        - The Uncertainty: Report Info -> Confidence Intervals. Goal -> Inform. Viz -> Custom HTML/CSS number line. Justification -> Directly visualizes the concept of an interval or range around a point estimate. Library -> HTML/CSS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #f0f8ff; }
+        .infographic-card { background-color: white; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 0 4px 6px -4px rgb(0 0 0 / 0.1); padding: 1.5rem; border: 1px solid #e0f2fe; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; height: 300px; margin: auto; }
+        .icon-bg { background-color: #e0f2fe; color: #0077b6; }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header class="text-center py-10 px-4">
+        <h1 class="text-4xl md:text-5xl font-bold text-sky-800">The Path of Statistical Inference</h1>
+        <p class="text-lg mt-2 text-sky-600">From a Small Sample to a Big Conclusion</p>
+    </header>
+
+    <main class="container mx-auto px-4 pb-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <!-- 1. The Goal -->
+            <div class="infographic-card lg:col-span-1">
+                <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center icon-bg text-2xl">🎯</div>
+                    <h2 class="text-2xl font-bold text-sky-700">The Goal</h2>
+                </div>
+                <p class="mt-4 text-slate-600">We want to understand a whole **population**, but we can only study a small **sample**. Statistical inference is the science of using that sample data to make educated guesses about the population.</p>
+                <div class="mt-4 flex justify-around items-center text-center">
+                    <div>
+                        <div class="text-4xl">👥</div>
+                        <p class="font-semibold text-sky-800">Population</p>
+                        <p class="text-sm text-slate-500">(Everyone)</p>
+                    </div>
+                    <div class="text-4xl font-light text-slate-400">→</div>
+                    <div>
+                         <div class="text-4xl">🧑‍🤝‍🧑</div>
+                        <p class="font-semibold text-sky-800">Sample</p>
+                        <p class="text-sm text-slate-500">(A Small Group)</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. The Bridge -->
+            <div class="infographic-card lg:col-span-2">
+                 <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center icon-bg text-2xl">🌉</div>
+                    <h2 class="text-2xl font-bold text-sky-700">The Bridge: Central Limit Theorem</h2>
+                </div>
+                <p class="mt-4 text-slate-600">If we take many random samples and plot their average values, they form a predictable bell curve called a **sampling distribution**. This allows us to use the properties of the normal distribution to make inferences.</p>
+                <div class="chart-container mt-4">
+                    <canvas id="sampling-dist-chart"></canvas>
+                </div>
+            </div>
+            
+            <!-- 3. The Framework -->
+            <div class="infographic-card lg:col-span-3">
+                 <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center icon-bg text-2xl">📜</div>
+                    <h2 class="text-2xl font-bold text-sky-700">The Framework: Hypothesis Testing</h2>
+                </div>
+                <p class="mt-4 text-slate-600">This is the formal process for testing a claim.</p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-center">
+                    <div class="p-4 bg-sky-50 rounded-lg">
+                        <p class="text-4xl">1️⃣</p>
+                        <h3 class="font-bold mt-2">State Hypotheses</h3>
+                        <p class="text-sm text-slate-500">Define the Null (H₀, no effect) and Alternative (Hₐ, an effect) hypotheses.</p>
+                    </div>
+                    <div class="p-4 bg-sky-50 rounded-lg">
+                        <p class="text-4xl">2️⃣</p>
+                        <h3 class="font-bold mt-2">Set the Standard</h3>
+                        <p class="text-sm text-slate-500">Choose a significance level (α), usually 5% (0.05).</p>
+                    </div>
+                    <div class="p-4 bg-sky-50 rounded-lg">
+                        <p class="text-4xl">3️⃣</p>
+                        <h3 class="font-bold mt-2">Analyze Data</h3>
+                        <p class="text-sm text-slate-500">Calculate a test statistic from your sample data.</p>
+                    </div>
+                    <div class="p-4 bg-sky-50 rounded-lg">
+                        <p class="text-4xl">4️⃣</p>
+                        <h3 class="font-bold mt-2">Make a Decision</h3>
+                        <p class="text-sm text-slate-500">Compare your result (p-value) to your standard (α).</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4. The Verdict -->
+            <div class="infographic-card">
+                 <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center icon-bg text-2xl">⚖️</div>
+                    <h2 class="text-2xl font-bold text-sky-700">The Verdict</h2>
+                </div>
+                <p class="mt-4 text-slate-600">The **p-value** is the probability of seeing your data if the null hypothesis is true. We compare it to alpha (α) to make a decision.</p>
+                 <div class="mt-6 p-4 border-2 border-slate-200 rounded-lg text-center">
+                     <p class="font-bold text-lg">IF p-value ≤ α</p>
+                     <p class="text-2xl my-2">💥</p>
+                     <p class="text-xl font-semibold text-red-600">Reject the Null Hypothesis</p>
+                     <p class="text-sm text-slate-500">(The result is statistically significant)</p>
+                 </div>
+                 <div class="mt-4 p-4 border-2 border-slate-200 rounded-lg text-center">
+                     <p class="font-bold text-lg">IF p-value > α</p>
+                     <p class="text-2xl my-2">🤷</p>
+                     <p class="text-xl font-semibold text-green-600">Fail to Reject the Null</p>
+                     <p class="text-sm text-slate-500">(The result is not statistically significant)</p>
+                 </div>
+            </div>
+            
+            <!-- 5. The Risks -->
+            <div class="infographic-card">
+                 <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center icon-bg text-2xl">⚠️</div>
+                    <h2 class="text-2xl font-bold text-sky-700">The Risks: Errors</h2>
+                </div>
+                <p class="mt-4 text-slate-600">Since we're dealing with probability, we can make two kinds of mistakes.</p>
+                <table class="w-full mt-4 border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="border p-2"></th>
+                            <th class="border p-2 bg-sky-100 text-sky-800" colspan="2">Actual Reality</th>
+                        </tr>
+                        <tr>
+                            <th class="border p-2"></th>
+                            <th class="border p-2 bg-sky-50 text-sky-800">H₀ is True</th>
+                            <th class="border p-2 bg-sky-50 text-sky-800">H₀ is False</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border p-2 bg-sky-100 text-sky-800 font-bold align-top">Our Decision</td>
+                            <td class="border p-2 text-center">
+                                <span class="block font-bold text-red-600">Type I Error</span>
+                                <span class="text-xs">False Positive</span>
+                            </td>
+                            <td class="border p-2 text-center">
+                                <span class="block font-bold text-green-600">Correct!</span>
+                                <span class="text-xs">True Positive</span>
+                            </td>
+                        </tr>
+                        <tr>
+                             <td class="border p-2 bg-sky-100 text-sky-800 font-bold align-bottom">Reject H₀</td>
+                             <td class="border p-2 text-center">
+                                <span class="block font-bold text-green-600">Correct!</span>
+                                <span class="text-xs">True Negative</span>
+                            </td>
+                             <td class="border p-2 text-center">
+                                <span class="block font-bold text-orange-500">Type II Error</span>
+                                <span class="text-xs">False Negative</span>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- 6. Quantifying Uncertainty -->
+            <div class="infographic-card">
+                 <div class="flex items-center gap-4">
+                    <div class="w-12 h-12 rounded-full flex items-center justify-center icon-bg text-2xl">📏</div>
+                    <h2 class="text-2xl font-bold text-sky-700">The Uncertainty</h2>
+                </div>
+                <p class="mt-4 text-slate-600">A **confidence interval** gives a range of plausible values for the true population parameter, quantifying the uncertainty around our sample estimate.</p>
+                <div class="mt-6 text-center">
+                    <p class="text-slate-500">Sample Mean: 105</p>
+                    <div class="w-full bg-slate-200 h-2 my-2 rounded-full relative">
+                        <div class="bg-sky-500 h-2 rounded-full absolute" style="width: 50%; left: 25%;"></div>
+                        <div class="absolute w-1 h-4 bg-red-500 rounded-full" style="left: 50%;"></div>
+                    </div>
+                    <div class="flex justify-between text-xs px-2">
+                        <span>99</span>
+                        <span>111</span>
+                    </div>
+                     <p class="mt-4 text-xl font-bold text-sky-800">95% Confidence Interval: [99, 111]</p>
+                    <p class="text-sm text-slate-500">We are 95% confident the true population mean lies between 99 and 111.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+<script>
+    const data = [];
+    const labels = [];
+    const populationMean = 100;
+    const populationSD = 15;
+    
+    // Generate data for a normal distribution
+    for (let i = 0; i < 2000; i++) {
+        let u = 0, v = 0;
+        while(u === 0) u = Math.random(); //Converting [0,1) to (0,1)
+        while(v === 0) v = Math.random();
+        let num = Math.sqrt( -2.0 * Math.log( u ) ) * Math.cos( 2.0 * Math.PI * v );
+        data.push(num * populationSD + populationMean);
+    }
+    
+    // Create bins for histogram
+    const bins = {};
+    const min = Math.floor(Math.min(...data));
+    const max = Math.ceil(Math.max(...data));
+    const binSize = 1;
+    for (let i = min; i <= max; i += binSize) {
+        bins[i] = 0;
+    }
+    
+    data.forEach(d => {
+        const bin = Math.floor(d / binSize) * binSize;
+        if(bins[bin] !== undefined) {
+             bins[bin]++;
+        }
+    });
+
+    const ctx = document.getElementById('sampling-dist-chart').getContext('2d');
+    const myChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: Object.keys(bins),
+            datasets: [{
+                label: 'Frequency of Sample Means',
+                data: Object.values(bins),
+                backgroundColor: '#48CAE4',
+                borderColor: '#00B4D8',
+                borderWidth: 1
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        title: function(tooltipItems) {
+                            const item = tooltipItems[0];
+                            let label = item.chart.data.labels[item.dataIndex];
+                            if (Array.isArray(label)) {
+                              return label.join(' ');
+                            } else {
+                              return label;
+                            }
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: { display: true, text: 'Frequency' }
+                },
+                x: {
+                    title: { display: true, text: 'Sample Mean' }
+                }
+            }
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A Visual Guide to Causal Inference</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Energetic & Playful (#FF6B6B, #FFD166, #06D6A0, #118AB2, #073B4C) -->
+    <!-- Application Structure Plan: The infographic tells a linear story. It starts with the foundational problem (Correlation vs. Causation), introduces the "gold standard" solution (RCTs), and then presents a toolkit of common quasi-experimental methods (DiD, RDD, IV, PSM) for situations where RCTs are not possible. It concludes by summarizing the key assumptions. This structure logically builds from problem to ideal solution to practical alternatives, making a complex topic easy to follow. -->
+    <!-- Visualization & Content Choices: 
+        - Correlation vs. Causation: Report Info -> Confounding. Goal -> Inform. Viz -> HTML/CSS diagram. Justification -> A simple flow diagram is the clearest way to show the role of a third variable. Library -> HTML/CSS.
+        - RCTs: Report Info -> Randomized Controlled Trials. Goal -> Explain. Viz -> HTML/CSS diagram with Unicode icons. Justification -> Visually demonstrates the core logic of randomization creating two comparable groups. Library -> HTML/CSS.
+        - Difference-in-Differences (DiD): Report Info -> DiD Method. Goal -> Explain. Viz -> Line chart. Justification -> A line chart is the canonical way to illustrate the parallel trends assumption and the "difference in differences." Library -> Chart.js.
+        - Regression Discontinuity (RDD): Report Info -> RDD Method. Goal -> Explain. Viz -> Scatter plot. Justification -> A scatter plot with a clear jump at a cutoff is the most intuitive way to show the RDD logic. Library -> Chart.js.
+        - Instrumental Variables (IV): Report Info -> IV Method. Goal -> Organize. Viz -> HTML/CSS flow diagram. Justification -> A simple diagram best illustrates the required relationships: the instrument must affect the treatment but not the outcome directly. Library -> HTML/CSS.
+        - Propensity Score Matching (PSM): Report Info -> Matching Methods. Goal -> Compare. Viz -> HTML/CSS diagram with icons. Justification -> Shows the "before and after" of matching, making the goal of creating a balanced control group visually explicit. Library -> HTML/CSS.
+        - Core Assumptions: Report Info -> SUTVA, Unconfoundedness, Positivity. Goal -> Inform/Organize. Viz -> List with icons. Justification -> A clean, icon-based list is perfect for summarizing the key, non-negotiable "rules" of causal inference. Library -> HTML/CSS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Poppins', sans-serif; background-color: #f7fafc; }
+        .card { background-color: white; border-radius: 1rem; box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.07), 0 4px 6px -4px rgb(0 0 0 / 0.1); padding: 2rem; border: 1px solid #e2e8f0; }
+        .chart-container { position: relative; width: 100%; max-width: 500px; height: 250px; margin: 1rem auto 0 auto; }
+        .icon-bg { display: flex; align-items: center; justify-content: center; width: 3rem; height: 3rem; border-radius: 9999px; font-size: 1.5rem; }
+    </style>
+</head>
+<body class="text-slate-700">
+
+    <header class="text-center py-12 px-4 bg-white">
+        <h1 class="text-4xl md:text-5xl font-bold" style="color: #073B4C;">The Analyst's Guide to Cause & Effect</h1>
+        <p class="text-lg mt-2 mx-auto max-w-2xl" style="color: #118AB2;">Moving beyond "what happened" to "why it happened" with powerful causal inference methods.</p>
+    </header>
+
+    <main class="container mx-auto px-4 py-12">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            
+            <div class="card md:col-span-2 lg:col-span-1">
+                <div class="flex items-center gap-4">
+                    <div class="icon-bg" style="background-color: #FFD166;"><span class="text-white">❓</span></div>
+                    <h2 class="text-2xl font-bold" style="color: #073B4C;">The Core Problem</h2>
+                </div>
+                <p class="mt-4">The most common trap is **confounding**, where a hidden "third variable" causes two other variables to move together, creating a spurious correlation.</p>
+                <div class="mt-4 text-center">
+                    <div class="p-2 rounded-md font-semibold" style="background-color: #FFD166; color: white;">Weather (Confounder)</div>
+                    <div class="flex justify-between mt-2">
+                        <div class="w-1/2 text-center">
+                            <div class="text-2xl mx-auto h-8">↓</div>
+                            <div class="p-2 rounded-md" style="background-color: #eef; color: #118AB2;">Ice Cream Sales</div>
+                        </div>
+                        <div class="w-1/2 text-center">
+                            <div class="text-2xl mx-auto h-8">↓</div>
+                            <div class="p-2 rounded-md" style="background-color: #fee; color: #FF6B6B;">Crime Rate</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card md:col-span-2 lg:col-span-2">
+                <div class="flex items-center gap-4">
+                    <div class="icon-bg" style="background-color: #06D6A0;"><span class="text-white">🏆</span></div>
+                    <h2 class="text-2xl font-bold" style="color: #073B4C;">The Gold Standard: RCTs</h2>
+                </div>
+                <p class="mt-4">Randomization is the most powerful tool. It creates two groups that are, on average, identical, breaking the links to any potential confounders. Any difference in outcome can then be attributed to the treatment.</p>
+                <div class="mt-4 flex flex-col md:flex-row items-center justify-around text-center">
+                    <div>
+                        <div class="text-4xl">👥</div>
+                        <p class="font-semibold">Population</p>
+                    </div>
+                    <div class="text-4xl my-2 md:my-0 md:mx-4">🪙</div>
+                    <div class="flex gap-4">
+                        <div class="p-3 border-2 rounded-lg" style="border-color: #118AB2;">
+                             <p class="font-bold" style="color: #118AB2;">Treatment Group</p>
+                        </div>
+                         <div class="p-3 border-2 rounded-lg border-slate-300">
+                             <p class="font-bold text-slate-500">Control Group</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="flex items-center gap-4">
+                     <div class="icon-bg" style="background-color: #118AB2;"><span class="text-white">📈</span></div>
+                    <h2 class="text-2xl font-bold" style="color: #073B4C;">Difference-in-Differences</h2>
+                </div>
+                <p class="mt-4">Compares the change in outcomes over time between a treated group and an untreated group. Relies on the "parallel trends" assumption.</p>
+                <div class="chart-container">
+                    <canvas id="did-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="card">
+                 <div class="flex items-center gap-4">
+                    <div class="icon-bg" style="background-color: #118AB2;"><span class="text-white">⚡</span></div>
+                    <h2 class="text-2xl font-bold" style="color: #073B4C;">Regression Discontinuity</h2>
+                </div>
+                <p class="mt-4">Used when a treatment is assigned by a sharp cutoff. It compares people just above and below the cutoff, assuming they are otherwise identical.</p>
+                <div class="chart-container">
+                    <canvas id="rdd-chart"></canvas>
+                </div>
+            </div>
+
+            <div class="card lg:col-span-1 md:col-span-2">
+                 <div class="flex items-center gap-4">
+                    <div class="icon-bg" style="background-color: #118AB2;"><span class="text-white">🛠️</span></div>
+                    <h2 class="text-2xl font-bold" style="color: #073B4C;">More Tools</h2>
+                </div>
+                <div class="mt-4 space-y-6">
+                    <div>
+                        <h3 class="font-semibold">Instrumental Variables (IV)</h3>
+                        <p class="text-sm">Uses a third variable (the instrument) that affects treatment choice but not the outcome directly, isolating a sliver of "as-if random" assignment.</p>
+                    </div>
+                     <div>
+                        <h3 class="font-semibold">Propensity Score Matching (PSM)</h3>
+                        <p class="text-sm">Creates a comparable control group by matching treated individuals to untreated individuals who had a similar likelihood (propensity) of being treated.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card md:col-span-2 lg:col-span-3">
+                 <div class="flex items-center gap-4">
+                    <div class="icon-bg" style="background-color: #FF6B6B;"><span class="text-white">📜</span></div>
+                    <h2 class="text-2xl font-bold" style="color: #073B4C;">The Unspoken Rules</h2>
+                </div>
+                <p class="mt-4">All causal claims from non-experimental data rely on strong, untestable assumptions. These must be justified with domain knowledge.</p>
+                <div class="mt-4 grid grid-cols-1 sm:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <p class="text-4xl">🤝</p>
+                        <h3 class="font-bold mt-2">SUTVA</h3>
+                        <p class="text-sm text-slate-500">No interference between units and no hidden versions of the treatment.</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-4xl">🔍</p>
+                        <h3 class="font-bold mt-2">Unconfoundedness</h3>
+                        <p class="text-sm text-slate-500">All variables that affect both treatment and outcome have been measured and controlled for.</p>
+                    </div>
+                    <div class="text-center">
+                        <p class="text-4xl">✅</p>
+                        <h3 class="font-bold mt-2">Positivity</h3>
+                        <p class="text-sm text-slate-500">For any type of person, there is some chance of being in either the treatment or control group.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const tooltipCallback = {
+        plugins: {
+            tooltip: {
+                callbacks: {
+                    title: function(tooltipItems) {
+                        const item = tooltipItems[0];
+                        let label = item.chart.data.labels[item.dataIndex];
+                        if (Array.isArray(label)) {
+                          return label.join(' ');
+                        } else {
+                          return label;
+                        }
+                    }
+                }
+            }
+        }
+    };
+
+    const didCtx = document.getElementById('did-chart').getContext('2d');
+    new Chart(didCtx, {
+        type: 'line',
+        data: {
+            labels: ['Pre-Period', 'Post-Period'],
+            datasets: [{
+                label: 'Treatment Group',
+                data: [10, 25],
+                borderColor: '#118AB2',
+                backgroundColor: '#118AB2',
+                tension: 0.1
+            }, {
+                label: 'Control Group',
+                data: [10, 15],
+                borderColor: '#FFD166',
+                backgroundColor: '#FFD166',
+                tension: 0.1
+            }, {
+                label: 'Counterfactual Trend',
+                data: [10, 15],
+                borderColor: '#118AB2',
+                borderDash: [5, 5],
+                tension: 0.1
+            }]
+        },
+        options: { ...tooltipCallback, responsive: true, maintainAspectRatio: false, scales: { y: { title: { display: true, text: 'Outcome' }}}}
+    });
+
+    const rddCtx = document.getElementById('rdd-chart').getContext('2d');
+    new Chart(rddCtx, {
+        type: 'scatter',
+        data: {
+            datasets: [{
+                label: 'Control',
+                data: [{x: 40, y: 42}, {x: 42, y: 43}, {x: 45, y: 48}, {x: 48, y: 49}, {x:49, y: 51}],
+                backgroundColor: '#FFD166'
+            }, {
+                label: 'Treatment',
+                data: [{x: 51, y: 65}, {x: 55, y: 68}, {x: 58, y: 71}, {x: 60, y: 75}, {x:62, y:78}],
+                backgroundColor: '#FF6B6B'
+            }]
+        },
+        options: {
+            ...tooltipCallback,
+            responsive: true, 
+            maintainAspectRatio: false,
+            scales: { 
+                x: { 
+                    type: 'linear', 
+                    position: 'bottom',
+                    title: { display: true, text: 'Forcing Variable'}
+                },
+                y: {
+                     title: { display: true, text: 'Outcome'}
+                }
+            },
+            plugins: {
+                annotation: {
+                    annotations: {
+                        line1: {
+                            type: 'line',
+                            xMin: 50,
+                            xMax: 50,
+                            borderColor: '#073B4C',
+                            borderWidth: 2,
+                            borderDash: [6, 6],
+                            label: { content: 'Cutoff', enabled: true, position: 'start', yAdjust: -15, backgroundColor: 'rgba(255,255,255,0.7)'}
+                        }
+                    }
+                }
+            }
+        }
+    });
+});
+</script>
+</html>

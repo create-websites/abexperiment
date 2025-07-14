@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Foundations of Causal Inference</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Scholarly Blue & Neutral Gray -->
+    <!-- Application Structure Plan: The application is designed as a learning journey. It starts by visualizing the abstract 'Fundamental Problem' to establish why causal inference is hard. It then introduces the goal (ATE). The centerpiece is an interactive simulation contrasting 'The Gold Standard' (Randomization) with its main pitfall (Selection Bias), allowing users to see the mechanisms of bias and balance directly. Finally, it presents the 'Rules of the Game' (Core Assumptions) in a digestible, interactive format. This structure moves from problem to solution to pitfalls to principles, making the concepts from the source report tangible and easier to grasp than a linear document. -->
+    <!-- Visualization & Content Choices: 
+        - The Fundamental Problem: Report Info -> Potential Outcomes & the Counterfactual. Goal -> Explain the core challenge. Viz -> HTML/CSS card flip animation. Interaction -> Hover to see the "what if" scenario. Justification -> Makes the abstract idea of an unobservable counterfactual immediately visible and intuitive. Library/Method -> Tailwind CSS, JS.
+        - Average Treatment Effect: Report Info -> ATE definition. Goal -> Show how we measure effects on average. Viz -> Bar Chart. Interaction -> Button click updates the chart. Justification -> A simple bar chart is the clearest way to show a difference in means between two groups. Library/Method -> Chart.js.
+        - Randomization vs. Bias: Report Info -> Random Sampling, Random Assignment, Selection Bias. Goal -> Contrast the power of randomization with the danger of selection bias. Viz -> Custom interactive simulation with icons representing people. Interaction -> Buttons to 'Sample', 'Assign', and 'Self-Select'. Justification -> This is the most critical interactive element. It allows users to *perform* the actions of randomization and selection, and see the immediate result on group balance and the final ATE estimate, demonstrating the concept of internal validity directly. Library/Method -> Vanilla JS, HTML/CSS.
+        - Core Assumptions: Report Info -> SUTVA, Ignorability, Positivity, Excludability. Goal -> Explain the necessary conditions for valid inference. Viz -> Interactive accordion/collapsible sections. Interaction -> Click to expand/collapse. Justification -> Breaks down dense, definitional content into manageable pieces, preventing user overload and encouraging focused reading on each specific assumption. Library/Method -> Vanilla JS, Tailwind CSS.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
+        h1, h2, h3, h4 { font-family: 'Lora', serif; }
+        .chart-container { position: relative; width: 100%; max-width: 600px; height: 300px; margin-left: auto; margin-right: auto; max-height: 400px; }
+        .nav-link { transition: color 0.3s, border-bottom-color 0.3s; border-bottom: 2px solid transparent; }
+        .nav-link.active, .nav-link:hover { color: #2563eb; border-bottom-color: #2563eb; }
+        .assumption-card { transition: max-height 0.5s ease-in-out, background-color 0.3s; overflow: hidden; }
+        .population-unit { transition: all 0.5s ease-in-out; }
+        .perspective-container { perspective: 1000px; }
+        .flip-card { position: relative; transform-style: preserve-3d; transition: transform 0.8s; }
+        .perspective-container:hover .flip-card { transform: rotateY(180deg); }
+        .flip-card-front, .flip-card-back { position: absolute; width: 100%; height: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; }
+        .flip-card-back { transform: rotateY(180deg); }
+    </style>
+</head>
+<body class="text-slate-800">
+
+    <header class="bg-white/80 backdrop-blur-lg shadow-sm sticky top-0 z-50">
+        <nav class="container mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between h-16">
+            <h1 class="text-xl md:text-2xl font-bold text-slate-900">Interactive Causal Inference</h1>
+            <div class="hidden md:flex items-center space-x-6">
+                <a href="#problem" class="nav-link font-semibold text-slate-600 pb-1">The Problem</a>
+                <a href="#randomization" class="nav-link font-semibold text-slate-600 pb-1">The Solution</a>
+                <a href="#assumptions" class="nav-link font-semibold text-slate-600 pb-1">The Rules</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        
+        <section id="intro" class="text-center py-12">
+            <h2 class="text-4xl lg:text-5xl font-bold text-slate-900 mb-4">Why is "Why?" a Hard Question?</h2>
+            <p class="max-w-3xl mx-auto text-lg text-slate-600">
+                This experience translates the core theories of causal inference into interactive visualizations. You'll move beyond observing that two things are related and learn about the rigorous frameworks used to determine if one *causes* the other.
+            </p>
+        </section>
+
+        <hr class="border-slate-200 my-12">
+
+        <section id="problem" class="scroll-mt-20">
+            <div class="text-center mb-10">
+                <h3 class="text-3xl font-bold text-slate-900">The Fundamental Problem of Causal Inference</h3>
+                <p class="max-w-2xl mx-auto text-lg text-slate-600 mt-2">We can never observe what would have happened to the same person under a different choice at the same time. The unobserved outcome is the **counterfactual**. Hover over the card to see the problem in action.</p>
+            </div>
+            <div class="flex justify-center">
+                <div class="w-full max-w-sm h-64 perspective-container">
+                    <div class="w-full h-full flip-card">
+                        <div class="flip-card-front flex flex-col items-center justify-center bg-white rounded-xl shadow-lg border border-slate-200 p-6">
+                            <span class="text-5xl mb-3">🧑‍⚕️</span>
+                            <h4 class="text-xl font-bold">Observed Reality</h4>
+                            <p class="text-center text-slate-600 mt-2">Alex took the new medication. We observe their outcome: <span class="font-bold text-blue-600">Blood Pressure = 120</span>.</p>
+                            <p class="text-xs text-slate-400 mt-4">Hover to see the counterfactual</p>
+                        </div>
+                        <div class="flip-card-back flex flex-col items-center justify-center bg-slate-800 text-white rounded-xl shadow-lg p-6">
+                            <span class="text-5xl mb-3">🤔</span>
+                            <h4 class="text-xl font-bold">The Counterfactual</h4>
+                            <p class="text-center text-slate-300 mt-2">What if Alex had *not* taken the medication? We can never know for sure. This potential outcome is unobservable.</p>
+                            <p class="font-bold text-yellow-400 mt-2">Potential Outcome = ?</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+             <p class="text-center mt-8 max-w-2xl mx-auto text-slate-600">Since we can't measure the individual causal effect (Observed - Counterfactual), we must estimate the **Average Treatment Effect (ATE)** across a group.</p>
+        </section>
+
+        <hr class="border-slate-200 my-12">
+
+        <section id="randomization" class="scroll-mt-20">
+            <div class="text-center mb-10">
+                <h3 class="text-3xl font-bold text-slate-900">The Solution: Randomization</h3>
+                <p class="max-w-3xl mx-auto text-lg text-slate-600 mt-2">**Random assignment** is the gold standard for unbiased inference. It creates two groups that are, on average, identical in every way *except* for the treatment. This allows us to use the control group's average outcome as a valid counterfactual for the treatment group's average outcome. Let's see how it works, and contrast it with its main pitfall: selection bias.</p>
+            </div>
+
+            <div class="bg-white rounded-xl shadow-lg border border-slate-200 p-6 lg:p-8">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- CONTROLS -->
+                    <div class="border-b lg:border-b-0 lg:border-r border-slate-200 pb-8 lg:pr-8 lg:pb-0">
+                        <h4 class="text-2xl font-bold text-slate-900">Experiment Simulation</h4>
+                        <p class="text-slate-600 mt-2 mb-4">Our population has two key characteristics: motivation (🧠 High / 😴 Low) and baseline health (💚 Good / 💛 Fair). Our goal is to measure the effect of a 'Wellness Program'.</p>
+                        <div class="space-y-3">
+                            <button id="populate-btn" class="w-full bg-slate-700 hover:bg-slate-800 text-white font-bold py-2 px-4 rounded-lg transition">1. Generate Population</button>
+                            <button id="assign-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-slate-300" disabled>2. Randomly Assign to Groups</button>
+                            <button id="bias-btn" class="w-full bg-orange-500 hover:bg-orange-600 text-white font-bold py-2 px-4 rounded-lg transition disabled:bg-slate-300" disabled>Alternate Step 2: Allow Self-Selection (Bias)</button>
+                             <button id="reset-btn" class="w-full bg-slate-400 hover:bg-slate-500 text-white font-bold py-2 px-4 rounded-lg transition mt-4">Reset Simulation</button>
+                        </div>
+                        <div id="simulation-results" class="mt-6 space-y-4"></div>
+                    </div>
+
+                    <!-- VISUALIZATION -->
+                    <div>
+                        <div class="grid grid-cols-2 gap-4">
+                             <div>
+                                <h4 class="text-xl font-bold text-center mb-2">Treatment Group</h4>
+                                <div id="treatment-group-box" class="h-64 bg-slate-100 rounded-lg p-2 relative flex flex-wrap gap-2 content-start"></div>
+                            </div>
+                            <div>
+                                <h4 class="text-xl font-bold text-center mb-2">Control Group</h4>
+                                <div id="control-group-box" class="h-64 bg-slate-100 rounded-lg p-2 relative flex flex-wrap gap-2 content-start"></div>
+                            </div>
+                        </div>
+                        <div id="population-box" class="h-40 mt-4 border-2 border-dashed border-slate-300 rounded-lg p-2 relative flex flex-wrap gap-2 content-start">
+                             <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400 font-semibold">Population Area</div>
+                        </div>
+                    </div>
+                </div>
+                 <div id="chart-section" class="mt-8 hidden">
+                    <h4 class="text-2xl font-bold text-slate-900 text-center">Estimated Treatment Effect</h4>
+                    <div class="chart-container mt-4">
+                        <canvas id="ateChart"></canvas>
+                    </div>
+                    <p id="chart-explanation" class="text-center mt-4 max-w-2xl mx-auto text-slate-600"></p>
+                </div>
+            </div>
+        </section>
+        
+        <hr class="border-slate-200 my-12">
+
+        <section id="assumptions" class="scroll-mt-20">
+            <div class="text-center mb-10">
+                <h3 class="text-3xl font-bold text-slate-900">The Rules of the Game: Core Assumptions</h3>
+                <p class="max-w-2xl mx-auto text-lg text-slate-600 mt-2">For any causal claim to be valid, several assumptions must hold. These are not just statistical checks; they are fundamental statements about how the world works in the context of your study.</p>
+            </div>
+            <div class="space-y-4 max-w-3xl mx-auto">
+                <div class="assumption-card bg-white rounded-lg border border-slate-200 shadow-sm" data-card="sutva">
+                    <button class="w-full flex justify-between items-center p-5 text-left font-semibold text-lg">
+                        SUTVA: Stable Unit Treatment Value Assumption
+                        <span class="text-2xl transform transition-transform card-arrow">+</span>
+                    </button>
+                    <div class="px-5 pb-5 max-h-0">
+                        <p class="text-slate-600">This is a compound assumption with two key parts:</p>
+                        <ol class="list-decimal list-inside mt-2 space-y-2 text-slate-600">
+                            <li><strong>No Interference:</strong> The outcome for one person is not affected by who else gets the treatment. <br><em>Example Violation:</em> In a vaccine trial, if my friend getting vaccinated reduces my chance of getting sick, their treatment has interfered with my outcome.</li>
+                            <li><strong>Consistency:</strong> The treatment is the same for everyone who receives it. There are no hidden variations. <br><em>Example Violation:</em> A "tutoring" program where some students get 1 hour of help and others get 10 hours. The treatment isn't consistent.</li>
+                        </ol>
+                    </div>
+                </div>
+                <div class="assumption-card bg-white rounded-lg border border-slate-200 shadow-sm" data-card="ignorability">
+                    <button class="w-full flex justify-between items-center p-5 text-left font-semibold text-lg">
+                        Ignorability (or Exchangeability)
+                         <span class="text-2xl transform transition-transform card-arrow">+</span>
+                    </button>
+                     <div class="px-5 pb-5 max-h-0">
+                        <p class="text-slate-600">This assumes that treatment assignment is not based on the potential outcomes, even after controlling for observed covariates (X). In an RCT, this is true by design. In an observational study, it's the critical, untestable assumption that you have measured all important confounding variables. It means your treatment and control groups are "exchangeable" once you've accounted for X.</p>
+                    </div>
+                </div>
+                <div class="assumption-card bg-white rounded-lg border border-slate-200 shadow-sm" data-card="positivity">
+                    <button class="w-full flex justify-between items-center p-5 text-left font-semibold text-lg">
+                        Positivity (or Common Support)
+                         <span class="text-2xl transform transition-transform card-arrow">+</span>
+                    </button>
+                     <div class="px-5 pb-5 max-h-0">
+                        <p class="text-slate-600">For any given set of characteristics, there must be a chance of being in either the treatment or the control group. <br><em>Example Violation:</em> If the wellness program is only offered to employees over 40, you can't estimate its effect for employees under 40, because there are no untreated people to compare them to in that age group.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+    
+    <footer class="bg-slate-800 text-slate-300 mt-20">
+        <div class="container mx-auto py-6 text-center">
+            <p>Built to make complex ideas accessible.</p>
+        </div>
+    </footer>
+
+
+    <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Navigation
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('.nav-link');
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    navLinks.forEach(link => {
+                        const href = link.getAttribute('href');
+                        link.classList.toggle('active', href.substring(1) === entry.target.id);
+                    });
+                }
+            });
+        }, { rootMargin: '-40% 0px -60% 0px' });
+        sections.forEach(section => observer.observe(section));
+
+        // Assumption Cards
+        const assumptionCards = document.querySelectorAll('.assumption-card');
+        assumptionCards.forEach(card => {
+            const button = card.querySelector('button');
+            const content = card.querySelector('div');
+            const arrow = card.querySelector('.card-arrow');
+            button.addEventListener('click', () => {
+                const isExpanded = content.style.maxHeight && content.style.maxHeight !== '0px';
+                assumptionCards.forEach(c => {
+                    c.querySelector('div').style.maxHeight = '0px';
+                    c.querySelector('.card-arrow').classList.remove('rotate-45');
+                    c.classList.remove('bg-blue-50');
+                });
+                if (!isExpanded) {
+                    content.style.maxHeight = content.scrollHeight + 'px';
+                    arrow.classList.add('rotate-45');
+                    card.classList.add('bg-blue-50');
+                }
+            });
+        });
+
+        // Simulation Logic
+        const populateBtn = document.getElementById('populate-btn');
+        const assignBtn = document.getElementById('assign-btn');
+        const biasBtn = document.getElementById('bias-btn');
+        const resetBtn = document.getElementById('reset-btn');
+        const populationBox = document.getElementById('population-box');
+        const treatmentGroupBox = document.getElementById('treatment-group-box');
+        const controlGroupBox = document.getElementById('control-group-box');
+        const resultsDiv = document.getElementById('simulation-results');
+        const chartSection = document.getElementById('chart-section');
+        const chartExplanation = document.getElementById('chart-explanation');
+        const ateChartCtx = document.getElementById('ateChart').getContext('2d');
+        let ateChart;
+        let population = [];
+
+        function createUnit(id) {
+            const unit = document.createElement('div');
+            const motivation = Math.random() > 0.5; // true = high, false = low
+            const health = Math.random() > 0.5; // true = good, false = fair
+            unit.className = 'population-unit w-4 h-4 rounded-full border-2';
+            unit.dataset.id = id;
+            unit.dataset.motivation = motivation;
+            unit.dataset.health = health;
+            unit.style.backgroundColor = motivation ? '#a7f3d0' : '#fde68a'; // green for high motivation, yellow for low
+            unit.style.borderColor = health ? '#166534' : '#b45309'; // dark green for good health, orange for fair
+            unit.title = `ID: ${id}\nMotivation: ${motivation ? 'High' : 'Low'}\nHealth: ${health ? 'Good' : 'Fair'}`;
+            return unit;
+        }
+
+        populateBtn.addEventListener('click', () => {
+            if (population.length > 0) return;
+            for (let i = 0; i < 80; i++) {
+                const unitEl = createUnit(i);
+                population.push(unitEl);
+                populationBox.appendChild(unitEl);
+            }
+            assignBtn.disabled = false;
+            biasBtn.disabled = false;
+            populateBtn.disabled = true;
+        });
+
+        function calculateGroupStats(group) {
+            const units = Array.from(group.children);
+            if (units.length === 0) return { mot: 0, health: 0 };
+            const highMot = units.filter(u => u.dataset.motivation === 'true').length;
+            const goodHealth = units.filter(u => u.dataset.health === 'true').length;
+            return {
+                mot: (highMot / units.length * 100).toFixed(1),
+                health: (goodHealth / units.length * 100).toFixed(1)
+            };
+        }
+        
+        function displayStats() {
+            const treatmentStats = calculateGroupStats(treatmentGroupBox);
+            const controlStats = calculateGroupStats(controlGroupBox);
+            resultsDiv.innerHTML = `
+                <div class="p-3 bg-slate-50 rounded-md">
+                    <h5 class="font-bold">Treatment Group Stats</h5>
+                    <p class="text-sm">🧠 High Motivation: ${treatmentStats.mot}%</p>
+                    <p class="text-sm">💚 Good Health: ${treatmentStats.health}%</p>
+                </div>
+                <div class="p-3 bg-slate-50 rounded-md">
+                    <h5 class="font-bold">Control Group Stats</h5>
+                    <p class="text-sm">🧠 High Motivation: ${controlStats.mot}%</p>
+                    <p class="text-sm">💚 Good Health: ${controlStats.health}%</p>
+                </div>
+            `;
+        }
+
+        assignBtn.addEventListener('click', () => {
+            if (population.length === 0) return;
+            const shuffled = [...population].sort(() => 0.5 - Math.random());
+            shuffled.forEach((unit, i) => {
+                if (i < 40) treatmentGroupBox.appendChild(unit);
+                else controlGroupBox.appendChild(unit);
+            });
+            population = [];
+            displayStats();
+            assignBtn.disabled = true;
+            biasBtn.disabled = true;
+            runAnalysis(false); // No bias
+        });
+        
+        biasBtn.addEventListener('click', () => {
+            if (population.length === 0) return;
+            population.forEach(unit => {
+                // High motivation people are more likely to select into treatment
+                const willJoin = (unit.dataset.motivation === 'true') ? Math.random() < 0.8 : Math.random() < 0.2;
+                if(willJoin && treatmentGroupBox.children.length < 40) {
+                     treatmentGroupBox.appendChild(unit);
+                } else {
+                     controlGroupBox.appendChild(unit);
+                }
+            });
+             // Top up remaining
+            const remaining = Array.from(populationBox.children);
+            remaining.forEach(unit => {
+                if (treatmentGroupBox.children.length < 40) treatmentGroupBox.appendChild(unit);
+                else controlGroupBox.appendChild(unit);
+            });
+
+            population = [];
+            displayStats();
+            assignBtn.disabled = true;
+            biasBtn.disabled = true;
+            runAnalysis(true); // With bias
+        });
+
+        function runAnalysis(isBiased) {
+            const baseOutcome = 50;
+            const trueEffect = 15;
+            const motivationEffect = 10;
+            const healthEffect = 10;
+
+            const calculateOutcome = (unit) => {
+                let outcome = baseOutcome;
+                if (unit.dataset.motivation === 'true') outcome += motivationEffect;
+                if (unit.dataset.health === 'true') outcome += healthEffect;
+                if (unit.parentElement.id === 'treatment-group-box') outcome += trueEffect;
+                return outcome + (Math.random() * 10 - 5); // noise
+            };
+
+            const treatmentUnits = Array.from(treatmentGroupBox.children);
+            const controlUnits = Array.from(controlGroupBox.children);
+
+            const treatmentAvg = treatmentUnits.reduce((sum, unit) => sum + calculateOutcome(unit), 0) / treatmentUnits.length;
+            const controlAvg = controlUnits.reduce((sum, unit) => sum + calculateOutcome(unit), 0) / controlUnits.length;
+            
+            const estimatedATE = treatmentAvg - controlAvg;
+
+            chartSection.classList.remove('hidden');
+            if(ateChart) ateChart.destroy();
+            ateChart = new Chart(ateChartCtx, {
+                type: 'bar',
+                data: {
+                    labels: ['Control Group', 'Treatment Group'],
+                    datasets: [{
+                        label: 'Average Outcome',
+                        data: [controlAvg, treatmentAvg],
+                        backgroundColor: ['#64748b', '#2563eb']
+                    }]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { display: false }, title: { display: true, text: `Estimated ATE: ${estimatedATE.toFixed(2)}` } },
+                    scales: { y: { beginAtZero: false, suggestedMin: 50 } }
+                }
+            });
+
+            if(isBiased) {
+                chartExplanation.innerHTML = `<strong>Result with Selection Bias:</strong> The estimated effect is <strong class="text-orange-600">${estimatedATE.toFixed(2)}</strong>. This is likely an overestimate of the true effect (${trueEffect}) because the treatment group had more highly-motivated people to begin with. We can't distinguish the program's effect from the pre-existing differences.`;
+            } else {
+                chartExplanation.innerHTML = `<strong>Result with Random Assignment:</strong> The estimated effect is <strong class="text-blue-600">${estimatedATE.toFixed(2)}</strong>. Because the groups were balanced, this is an unbiased estimate of the true effect (${trueEffect}). The difference is due to the program itself.`;
+            }
+        }
+        
+        resetBtn.addEventListener('click', () => {
+             populationBox.innerHTML = '<div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-slate-400 font-semibold">Population Area</div>';
+             treatmentGroupBox.innerHTML = '';
+             controlGroupBox.innerHTML = '';
+             resultsDiv.innerHTML = '';
+             population = [];
+             assignBtn.disabled = true;
+             biasBtn.disabled = true;
+             populateBtn.disabled = false;
+             chartSection.classList.add('hidden');
+        });
+
+    });
+    </script>
+</body>
+</html>

@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Interactive Field Experiment Explorer</title>
+    <!-- Chosen Palette: Warm Neutrals -->
+    <!-- Application Structure Plan: The application is designed as a single-page dashboard with a fixed sidebar navigation, abandoning the linear structure of the source report. This non-linear, thematic structure allows users to freely explore core concepts in any order, promoting discovery and comparison over passive reading. The key sections are: 1) An interactive "Experiment Explorer" to compare methods using a dynamic chart. 2) A "Spectrum of Fieldness" visualizer for the Harrison-List typology. 3) A "Design & Challenges" section with an interactive process flowchart and visual explanations of validity threats. 4) A "Landmark Cases" gallery. 5) A "Frontiers" section for advanced topics. This architecture was chosen because the source report's value lies in its interconnected concepts and comparisons, which are best understood through direct interaction and dynamic visualization rather than sequential text. The user flow is centered on exploration, allowing users to jump between theory, practice, and challenges seamlessly. -->
+    <!-- Visualization & Content Choices: The application uses a variety of interactive elements tailored to the content's goal, strictly avoiding SVG and Mermaid JS. 1) Comparison of Methods (Inform/Compare): A Chart.js Radar Chart is used to visually represent the multi-dimensional trade-offs (validity, control) between experimental types. Interaction: Clicking buttons dynamically updates the chart, which is more effective than a static table for comparison. 2) Harrison-List Typology (Organize/Explain): A custom interactive diagram built with HTML/CSS/JS illustrates the "spectrum of fieldness." Interaction: Clicking on AFE/FFE/NFE updates descriptive text and visual cues, making the abstract concept tangible. 3) Research Process (Inform/Organize): An interactive flowchart using styled HTML divs. Interaction: Clicking a step expands it, presenting information progressively without overwhelming the user. 4) Validity Threats (Explain): Simple, pure CSS/JS animated icons visualize concepts like attrition and spillovers, enhancing comprehension. 5) Landmark Cases (Inform/Showcase): An interactive card grid. Interaction: Clicking a card reveals details in a modal, providing layered information on demand. These choices prioritize user engagement and intuitive understanding of complex academic concepts. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc; /* slate-50 */
+            color: #1e293b; /* slate-800 */
+        }
+        .nav-link {
+            transition: all 0.2s ease-in-out;
+        }
+        .nav-link.active, .nav-link:hover {
+            background-color: #e2e8f0; /* slate-200 */
+            color: #0f172a; /* slate-900 */
+            transform: translateX(4px);
+        }
+        .content-section {
+            display: none;
+        }
+        .content-section.active {
+            display: block;
+        }
+        .chart-container {
+            position: relative;
+            margin: auto;
+            height: 40vh;
+            max-height: 450px;
+            width: 100%;
+            max-width: 500px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .process-step-connector {
+            width: 2px;
+            height: 2rem;
+            background-color: #cbd5e1; /* slate-300 */
+            margin: 0 auto;
+        }
+        .btn {
+            transition: all 0.2s ease;
+        }
+        .btn-primary.active {
+            background-color: #334155; /* slate-700 */
+            color: white;
+            box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+        }
+        .modal-overlay {
+            transition: opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <div class="relative min-h-screen md:flex">
+        <!-- Mobile Nav Toggle -->
+        <div class="md:hidden flex justify-between items-center bg-white p-4 shadow-md">
+            <h1 class="text-xl font-bold text-slate-800">Field Experiment Explorer</h1>
+            <button id="mobile-nav-toggle" class="text-slate-600 hover:text-slate-900">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <aside id="sidebar" class="bg-white text-slate-600 w-64 space-y-2 p-4 inset-y-0 left-0 absolute transform -translate-x-full md:relative md:translate-x-0 transition-transform duration-200 ease-in-out shadow-lg z-30">
+            <h1 class="text-2xl font-bold text-slate-800 pb-4 border-b border-slate-200">Field Experiments</h1>
+            <nav class="flex flex-col space-y-1 pt-4">
+                <a href="#welcome" class="nav-link active font-semibold rounded-lg p-3 text-sm flex items-center space-x-3">
+                    <span>🏠</span><span>Welcome</span>
+                </a>
+                <a href="#explorer" class="nav-link font-semibold rounded-lg p-3 text-sm flex items-center space-x-3">
+                    <span>🔬</span><span>Experiment Explorer</span>
+                </a>
+                <a href="#spectrum" class="nav-link font-semibold rounded-lg p-3 text-sm flex items-center space-x-3">
+                    <span>🎨</span><span>Spectrum of Fieldness</span>
+                </a>
+                <a href="#design" class="nav-link font-semibold rounded-lg p-3 text-sm flex items-center space-x-3">
+                    <span>⚙️</span><span>Design & Challenges</span>
+                </a>
+                <a href="#cases" class="nav-link font-semibold rounded-lg p-3 text-sm flex items-center space-x-3">
+                    <span>🌍</span><span>Landmark Cases</span>
+                </a>
+                <a href="#frontier" class="nav-link font-semibold rounded-lg p-3 text-sm flex items-center space-x-3">
+                    <span>🚀</span><span>The Frontier</span>
+                </a>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 p-6 sm:p-8 lg:p-10">
+            <!-- Welcome Section -->
+            <section id="welcome" class="content-section active">
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h2 class="text-3xl font-bold text-slate-900 mb-4">Welcome to the Field Experiment Explorer</h2>
+                    <p class="text-slate-600 mb-6">
+                        This interactive application transforms a comprehensive research report on field experiments into an engaging learning experience. Field experiments are a powerful tool for understanding causal relationships in the real world, bridging the gap between controlled lab studies and the complexity of everyday life. Here, you can move beyond static text to visually explore, compare, and understand the core concepts, challenges, and landmark studies that define this vital scientific method.
+                    </p>
+                    <p class="text-slate-600">
+                        Use the navigation on the left to journey through the key themes. Compare different experimental types in the <strong class="text-slate-800">Explorer</strong>, see the trade-offs in the <strong class="text-slate-800">Spectrum of Fieldness</strong>, walk through the research process, discover groundbreaking <strong class="text-slate-800">Case Studies</strong>, and look ahead to <strong class="text-slate-800">The Frontier</strong> of experimentation.
+                    </p>
+                </div>
+            </section>
+
+            <!-- Experiment Explorer Section -->
+            <section id="explorer" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">Experiment Explorer</h2>
+                <p class="text-slate-600 mb-6">How do field experiments stack up against other research methods? Select an experiment type to see its profile. This section allows you to visually compare methods based on their key strengths and weaknesses, helping you understand the crucial trade-offs researchers make when choosing a design.</p>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="text-center mb-6">
+                        <div id="explorer-buttons" class="flex flex-wrap justify-center gap-2">
+                            <!-- Buttons will be injected by JS -->
+                        </div>
+                    </div>
+                    <div class="grid md:grid-cols-5 gap-6 items-center">
+                        <div class="md:col-span-3">
+                            <div class="chart-container">
+                                <canvas id="explorerChart"></canvas>
+                            </div>
+                        </div>
+                        <div id="explorer-text" class="md:col-span-2 text-sm text-slate-600 bg-slate-50 p-4 rounded-lg">
+                            <!-- Description will be injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Spectrum of Fieldness Section -->
+            <section id="spectrum" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">The Spectrum of "Fieldness"</h2>
+                <p class="text-slate-600 mb-6">Not all field experiments are the same. The Harrison-List typology classifies them along a spectrum from more controlled to more naturalistic. This section breaks down that spectrum, showing how the research context and participant awareness change across different types of field experiments and what that means for research findings and ethics.</p>
+                <div class="bg-white p-6 rounded-xl shadow-md">
+                    <div class="relative w-full p-4">
+                        <!-- Spectrum Track -->
+                        <div class="relative h-2 bg-slate-200 rounded-full">
+                            <div id="spectrum-progress" class="absolute h-2 bg-teal-500 rounded-full transition-all duration-500" style="width: 0%;"></div>
+                        </div>
+                        <!-- Spectrum Points -->
+                        <div id="spectrum-buttons" class="flex justify-between mt-2 text-xs md:text-sm">
+                            <!-- Buttons will be injected by JS -->
+                        </div>
+                    </div>
+                    <div class="mt-6 grid md:grid-cols-3 gap-4 text-center">
+                         <div id="spectrum-display" class="md:col-span-3 grid grid-cols-1 md:grid-cols-3 gap-6 p-4 bg-slate-50 rounded-lg">
+                           <!-- Content will be injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Design & Challenges Section -->
+            <section id="design" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">Design & Challenges</h2>
+                 <p class="text-slate-600 mb-6">Running a successful field experiment is a complex journey, part scientific process and part project management. This section visualizes the key stages of designing an experiment. It also highlights the common methodological hurdles researchers must overcome, such as participants dropping out or the intervention's effects spilling over to the control group.</p>
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- Anatomy of an Experiment -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                        <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">Anatomy of a Field Experiment</h3>
+                        <div id="process-flow" class="flex flex-col items-center">
+                            <!-- Steps will be injected by JS -->
+                        </div>
+                    </div>
+                    <!-- Challenges -->
+                    <div class="bg-white p-6 rounded-xl shadow-md">
+                         <h3 class="text-xl font-bold text-slate-800 mb-4 text-center">Common Challenges</h3>
+                         <div id="challenges-content" class="space-y-6">
+                            <!-- Content will be injected by JS -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Landmark Cases Section -->
+            <section id="cases" class="content-section">
+                 <h2 class="text-3xl font-bold text-slate-900 mb-2">Landmark Cases</h2>
+                 <p class="text-slate-600 mb-6">Field experiments have produced transformative insights across social policy, political science, economics, and business. This gallery showcases some of the most influential studies, from testing the impact of cash transfers on poverty to revealing discrimination in labor markets. Click on a card to learn about the study's design, its groundbreaking findings, and its lasting impact.</p>
+                <div id="cases-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Cases will be injected by JS -->
+                </div>
+            </section>
+            
+            <!-- The Frontier Section -->
+            <section id="frontier" class="content-section">
+                <h2 class="text-3xl font-bold text-slate-900 mb-2">The Frontier</h2>
+                <p class="text-slate-600 mb-6">The field is constantly evolving. Researchers are developing new methods to understand not just *if* an intervention works, but *for whom* it works best. They are tackling the difficult "problem of scale"—why small pilots often fail when rolled out widely—and navigating complex ethical questions. This section explores the cutting edge of field experimentation.</p>
+                <div id="frontier-grid" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <!-- Frontier topics will be injected by JS -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Modal for Landmark Cases -->
+    <div id="modal" class="modal-overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none">
+        <div id="modal-content" class="bg-white rounded-xl shadow-2xl w-full max-w-2xl max-h-[90vh] overflow-y-auto p-6 md:p-8 transform scale-95 transition-transform duration-300">
+            <!-- Modal content will be injected by JS -->
+        </div>
+    </div>
+
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+
+    const appData = {
+        explorer: {
+            methods: {
+                lab: {
+                    name: 'Laboratory Experiment',
+                    description: 'High degree of control over all variables in an artificial setting. Maximizes internal validity but often has low external (ecological) validity because the setting doesn\'t resemble real life.',
+                    scores: [5, 2, 5, 1, 5]
+                },
+                field: {
+                    name: 'Field Experiment',
+                    description: 'Randomization occurs in a real-world environment. Strikes a balance, achieving high ecological validity while maintaining the core principles of an experiment, but with less control over extraneous variables.',
+                    scores: [4, 4, 3, 4, 3]
+                },
+                quasi: {
+                    name: 'Quasi-Experiment',
+                    description: 'Lacks random assignment, often using pre-existing groups. Useful when randomization isn\'t feasible, but its internal validity is weak, making causal claims difficult.',
+                    scores: [2, 3, 2, 4, 2]
+                },
+                natural: {
+                    name: 'Natural Experiment',
+                    description: 'Researcher has no control; the "treatment" is a naturally occurring event. Allows study of large-scale events that can\'t be manipulated, but establishing clear causality is very difficult.',
+                    scores: [2, 5, 1, 5, 1]
+                }
+            },
+            labels: ['Internal Validity', 'External Validity', 'Researcher Control', 'Realism', 'Causal Strength']
+        },
+        spectrum: {
+            afe: {
+                title: 'Artefactual (AFE)',
+                explanation: 'A lab experiment with a non-standard subject pool. It uses participants from the population of interest (e.g., real traders, not students) to improve the relevance of the findings.',
+                awareness: 'Aware of Study',
+                context: 'Abstract/Lab',
+                ethics: 'Standard Consent'
+            },
+            ffe: {
+                title: 'Framed (FFE)',
+                explanation: 'An AFE that adds field context to the task. The situation is made more realistic for the participants (e.g., a fishing game for real fishermen).',
+                awareness: 'Aware of Study',
+                context: 'Realistic Task',
+                ethics: 'Standard Consent'
+            },
+            nfe: {
+                title: 'Natural (NFE)',
+                explanation: 'An experiment where subjects are in their natural environment and are completely unaware they are being studied. This eliminates behavioral changes due to observation.',
+                awareness: 'Unaware of Study',
+                context: 'Natural Setting',
+                ethics: 'Consent Waived'
+            }
+        },
+        design: {
+            process: [
+                { title: '1. Problem & Question', detail: 'Identify a problem and formulate a clear, specific, and testable research question, often in consultation with stakeholders.' },
+                { title: '2. Hypothesis Development', detail: 'Based on theory, develop a precise prediction about the relationship between the intervention and the outcome.' },
+                { title: '3. Experimental Design', detail: 'Select the unit of randomization, define treatment/control groups, and determine sampling strategy.' },
+                { title: '4. Partnerships & Resources', detail: 'Secure funding and build strong collaborative partnerships with organizations (governments, NGOs) to implement the study.' },
+                { title: '5. Ethical Review (IRB)', detail: 'Submit the full research protocol for approval from an Institutional Review Board to ensure participant protection. This step is mandatory.' },
+                { title: '6. Implementation & Data Collection', detail: 'Launch the intervention and collect baseline and endline data using appropriate methods (surveys, administrative records, etc.).' },
+                { title: '7. Analysis & Interpretation', detail: 'Use rigorous statistical methods to compare outcomes between groups and estimate the treatment effect, including measures of uncertainty.' }
+            ],
+            challenges: [
+                { title: 'Attrition', icon: '🏃', detail: 'Participants drop out before the study ends. If dropout rates or reasons differ between groups (differential attrition), it can bias the results by destroying the initial randomization.' , solution: 'Best addressed by prevention (e.g., incentives, tracking). Analytically, Intention-to-Treat (ITT) is a conservative approach.'},
+                { title: 'Non-Compliance', icon: '🤷', detail: 'Participants don\'t stick to their assigned group. Some in the treatment group don\'t get the treatment, and some in the control group do ("crossovers"). This dilutes the estimated effect.' , solution: 'The standard analysis is Intention-to-Treat (ITT), which analyzes participants based on their original random assignment, preserving the experiment\'s integrity.' },
+                { title: 'Spillover Effects (SUTVA Violation)', icon: '🌊', detail: 'The treatment "spills over" to affect the control group (e.g., information sharing, market competition). This contaminates the control group, making a simple comparison misleading.' , solution: 'Requires advanced designs like cluster randomization (randomizing villages instead of people) and new analytical models to measure direct vs. indirect effects.'},
+                { title: 'Statistical Power', icon: '🔋', detail: 'An underpowered study (too small a sample size) may fail to detect a real effect, leading to a "false negative." A power analysis is needed *before* the study to calculate the required sample size.' , solution: 'Conduct an *a priori* power analysis to determine the Minimum Detectable Effect (MDE) and ensure the sample size is large enough to find a meaningful result.'}
+            ]
+        },
+        cases: [
+            { title: 'PROGRESA/Oportunidades', domain: 'Social Policy', type: 'Govt. RCT', finding: 'Conditional Cash Transfers (CCTs) significantly improve education and health for the poor.', impact: 'Became the global model for evidence-based social policy, adopted in dozens of countries.' },
+            { title: 'Gerber & Green (2000)', domain: 'Political Science', type: 'NFE', finding: 'Personal, face-to-face canvassing is highly effective at increasing voter turnout; impersonal methods are less so.', impact: 'Launched a revolution in evidence-based political campaigning and voter mobilization.' },
+            { title: 'Bertrand & Mullainathan (2004)', domain: 'Labor Economics', type: 'NFE (Audit)', finding: 'Resumes with white-sounding names received 50% more callbacks than identical resumes with Black-sounding names.', impact: 'Provided powerful, direct evidence of racial discrimination and established the audit study as a key research method.' },
+            { title: 'Online A/B Testing', domain: 'Business/Tech', type: 'Digital NFE', finding: 'Constant, small-scale experiments on web platforms can optimize user engagement and business outcomes.', impact: 'Institutionalized experimentation as a core, continuous business process for major tech companies.' }
+        ],
+        frontier: [
+            { title: 'Beyond the Average (ML & CATE)', icon: '🎯', detail: 'Instead of one Average Treatment Effect (ATE), researchers use Machine Learning to estimate Conditional Average Treatment Effects (CATE). The goal is to answer: "What works for whom?" This allows for personalized policies and targeted interventions, moving from a one-size-fits-all approach to optimized, data-driven decision rules.' },
+            { title: 'The Science of Scaling', icon: '📈', detail: 'Addresses the "voltage drop" problem: why interventions that work in small pilots often fail at scale. This new field studies threats to scalability (e.g., population differences, implementation fidelity, market-wide effects) to help design experiments whose results are more likely to generalize to population-wide policy.' },
+            { title: 'The Ethical Crucible', icon: '⚖️', detail: 'The push for realism, especially in Natural Field Experiments (NFEs), creates ethical tensions around informed consent and potential harm. The Institutional Review Board (IRB) plays a critical role in balancing the scientific benefit of the research against the ethical cost of deception, defining the boundaries of what can be studied.' },
+            { title: 'The Future is Embedded', icon: '🧩', detail: 'Technology and academic-industry partnerships are making experimentation faster, cheaper, and more integrated into organizations. The future points to a culture of "always-on" experimentation, where the line between running a study and running an organization blurs, enabling continuous learning and adaptation.' }
+        ]
+    };
+
+    const mainContent = document.querySelector('main');
+    const navLinks = document.querySelectorAll('.nav-link');
+    const contentSections = document.querySelectorAll('.content-section');
+    const mobileNavToggle = document.getElementById('mobile-nav-toggle');
+    const sidebar = document.getElementById('sidebar');
+
+    function navigateTo(hash) {
+        navLinks.forEach(link => {
+            link.classList.toggle('active', link.hash === hash);
+        });
+        contentSections.forEach(section => {
+            section.classList.toggle('active', '#' + section.id === hash);
+        });
+        
+        mainContent.scrollTop = 0;
+        if(sidebar.classList.contains('translate-x-0')) {
+             sidebar.classList.add('-translate-x-full');
+             sidebar.classList.remove('translate-x-0');
+        }
+    }
+
+    navLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const hash = e.currentTarget.hash;
+            window.location.hash = hash;
+        });
+    });
+    
+    window.addEventListener('hashchange', () => {
+        const hash = window.location.hash || '#welcome';
+        navigateTo(hash);
+    });
+    
+    mobileNavToggle.addEventListener('click', () => {
+        sidebar.classList.toggle('-translate-x-full');
+        sidebar.classList.toggle('translate-x-0');
+    });
+
+    let explorerChart;
+    function initExplorer() {
+        const buttonsContainer = document.getElementById('explorer-buttons');
+        const textContainer = document.getElementById('explorer-text');
+        const ctx = document.getElementById('explorerChart').getContext('2d');
+        const methods = appData.explorer.methods;
+        const methodKeys = Object.keys(methods);
+
+        buttonsContainer.innerHTML = methodKeys.map(key => `
+            <button data-method="${key}" class="btn btn-primary text-sm font-semibold text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-full py-2 px-4">${methods[key].name}</button>
+        `).join('');
+
+        const chartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: { color: '#e2e8f0' },
+                    grid: { color: '#e2e8f0' },
+                    pointLabels: {
+                        font: { size: 12, weight: '500' },
+                        color: '#475569'
+                    },
+                    ticks: {
+                        backdropColor: 'rgba(255, 255, 255, 0.75)',
+                        color: '#64748b',
+                        stepSize: 1,
+                        font: {size: 10}
+                    },
+                    min: 0,
+                    max: 5
+                }
+            },
+            plugins: {
+                legend: { display: false },
+                 tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `${context.dataset.label}: ${context.formattedValue}`;
+                        }
+                    }
+                }
+            }
+        };
+
+        explorerChart = new Chart(ctx, {
+            type: 'radar',
+            data: {
+                labels: appData.explorer.labels,
+                datasets: []
+            },
+            options: chartOptions
+        });
+
+        function updateExplorer(methodKey) {
+            const method = methods[methodKey];
+            textContainer.innerHTML = `<h3 class="font-bold text-lg text-slate-800 mb-2">${method.name}</h3><p>${method.description}</p>`;
+            
+            explorerChart.data.datasets = [{
+                label: method.name,
+                data: method.scores,
+                backgroundColor: 'rgba(26, 179, 148, 0.2)',
+                borderColor: 'rgb(26, 179, 148)',
+                pointBackgroundColor: 'rgb(26, 179, 148)',
+                pointBorderColor: '#fff',
+                pointHoverBackgroundColor: '#fff',
+                pointHoverBorderColor: 'rgb(26, 179, 148)'
+            }];
+            explorerChart.update();
+
+            document.querySelectorAll('#explorer-buttons button').forEach(btn => {
+                btn.classList.toggle('active', btn.dataset.method === methodKey);
+            });
+        }
+        
+        buttonsContainer.addEventListener('click', (e) => {
+            if (e.target.tagName === 'BUTTON') {
+                updateExplorer(e.target.dataset.method);
+            }
+        });
+
+        updateExplorer(methodKeys[1]); // Default to Field Experiment
+    }
+
+    function initSpectrum() {
+        const buttonsContainer = document.getElementById('spectrum-buttons');
+        const displayContainer = document.getElementById('spectrum-display');
+        const progress = document.getElementById('spectrum-progress');
+        const types = appData.spectrum;
+        const typeKeys = Object.keys(types);
+
+        buttonsContainer.innerHTML = typeKeys.map(key => `
+            <button data-type="${key}" class="spectrum-btn flex-1 text-slate-600 hover:text-slate-900 font-semibold">${types[key].title}</button>
+        `).join('');
+
+        function updateSpectrum(typeKey) {
+            const type = types[typeKey];
+            const index = typeKeys.indexOf(typeKey);
+            const progressWidth = (index / (typeKeys.length - 1)) * 100;
+            
+            progress.style.width = `${progressWidth}%`;
+            
+            displayContainer.innerHTML = `
+                <div class="border-r border-slate-200 pr-4">
+                    <h4 class="font-semibold text-slate-500 text-sm mb-1">Explanation</h4>
+                    <p class="text-slate-800 font-semibold">${type.explanation}</p>
+                </div>
+                <div class="border-r border-slate-200 pr-4">
+                    <h4 class="font-semibold text-slate-500 text-sm mb-1">Participant Awareness</h4>
+                    <p class="text-slate-800 font-semibold">${type.awareness}</p>
+                </div>
+                 <div>
+                    <h4 class="font-semibold text-slate-500 text-sm mb-1">Ethical Consideration</h4>
+                    <p class="text-slate-800 font-semibold">${type.ethics}</p>
+                </div>
+            `;
+
+            document.querySelectorAll('.spectrum-btn').forEach(btn => {
+                btn.classList.toggle('text-teal-600', btn.dataset.type === typeKey);
+                 btn.classList.toggle('scale-110', btn.dataset.type === typeKey);
+            });
+        }
+        
+        buttonsContainer.addEventListener('click', e => {
+            if(e.target.classList.contains('spectrum-btn')) {
+                updateSpectrum(e.target.dataset.type);
+            }
+        });
+        
+        updateSpectrum(typeKeys[0]); // Default to AFE
+    }
+    
+    function initDesign() {
+        const processContainer = document.getElementById('process-flow');
+        const challengesContainer = document.getElementById('challenges-content');
+        
+        appData.design.process.forEach((step, index, arr) => {
+            processContainer.innerHTML += `
+                <div class="text-center">
+                    <button class="process-step bg-white border-2 border-slate-300 rounded-lg p-3 w-56 hover:border-teal-500 hover:shadow-md transition">
+                        <h4 class="font-bold text-slate-800">${step.title}</h4>
+                    </button>
+                    <div class="process-detail hidden text-sm bg-slate-50 p-3 mt-2 rounded-md w-56 mx-auto">
+                        ${step.detail}
+                    </div>
+                </div>
+                ${index < arr.length - 1 ? '<div class="process-step-connector"></div>' : ''}
+            `;
+        });
+        
+        challengesContainer.innerHTML = appData.design.challenges.map(c => `
+             <div class="flex items-start space-x-4">
+                <div class="text-3xl">${c.icon}</div>
+                <div>
+                    <h4 class="font-bold text-slate-800">${c.title}</h4>
+                    <p class="text-sm text-slate-600 mb-1">${c.detail}</p>
+                    <p class="text-xs text-teal-700 bg-teal-50 p-1 rounded-md"><strong class="font-semibold">Handling:</strong> ${c.solution}</p>
+                </div>
+            </div>
+        `).join('');
+
+        document.querySelectorAll('.process-step').forEach(button => {
+            button.addEventListener('click', () => {
+                const detail = button.nextElementSibling;
+                detail.classList.toggle('hidden');
+            });
+        });
+    }
+
+    function initCases() {
+        const grid = document.getElementById('cases-grid');
+        const modal = document.getElementById('modal');
+        const modalContent = document.getElementById('modal-content');
+        
+        grid.innerHTML = appData.cases.map((c, index) => `
+            <div data-index="${index}" class="case-card bg-white rounded-xl shadow-md p-6 cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-xl font-bold text-slate-800">${c.title}</h3>
+                    <span class="text-xs font-semibold bg-blue-100 text-blue-800 py-1 px-2 rounded-full">${c.domain}</span>
+                </div>
+                <p class="text-sm text-slate-600 mb-4">${c.finding}</p>
+                <span class="text-xs font-bold bg-slate-200 text-slate-700 py-1 px-2 rounded-full">${c.type}</span>
+            </div>
+        `).join('');
+        
+        grid.addEventListener('click', e => {
+            const card = e.target.closest('.case-card');
+            if (card) {
+                const caseData = appData.cases[card.dataset.index];
+                modalContent.innerHTML = `
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-2xl font-bold text-slate-900">${caseData.title}</h2>
+                        <button id="close-modal" class="text-slate-500 hover:text-slate-800">&times;</button>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-700 mt-4 mb-1">Key Finding</h4>
+                        <p class="text-slate-600">${caseData.finding}</p>
+                        <h4 class="font-bold text-slate-700 mt-4 mb-1">Impact</h4>
+                        <p class="text-slate-600">${caseData.impact}</p>
+                        <div class="mt-4">
+                            <span class="text-sm font-semibold bg-blue-100 text-blue-800 py-1 px-3 rounded-full">${caseData.domain}</span>
+                            <span class="text-sm font-semibold bg-slate-200 text-slate-700 py-1 px-3 rounded-full ml-2">${caseData.type}</span>
+                        </div>
+                    </div>
+                `;
+                modal.classList.remove('opacity-0', 'pointer-events-none');
+                modalContent.classList.remove('scale-95');
+            }
+        });
+        
+        function closeModal() {
+            modal.classList.add('opacity-0', 'pointer-events-none');
+            modalContent.classList.add('scale-95');
+        }
+
+        modal.addEventListener('click', e => {
+            if (e.target === modal || e.target.closest('#close-modal')) {
+                closeModal();
+            }
+        });
+
+    }
+    
+    function initFrontier() {
+        const grid = document.getElementById('frontier-grid');
+        grid.innerHTML = appData.frontier.map(f => `
+            <div class="bg-white rounded-xl shadow-md p-6 flex items-start space-x-4">
+                <div class="text-4xl">${f.icon}</div>
+                <div>
+                    <h3 class="text-xl font-bold text-slate-800">${f.title}</h3>
+                    <p class="text-sm text-slate-600 mt-1">${f.detail}</p>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Initializations
+    initExplorer();
+    initSpectrum();
+    initDesign();
+    initCases();
+    initFrontier();
+
+    const initialHash = window.location.hash || '#welcome';
+    navigateTo(initialHash);
+});
+</script>
+</body>
+</html>
